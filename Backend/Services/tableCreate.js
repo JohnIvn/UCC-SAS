@@ -1,4 +1,4 @@
-import { userStudentAccount } from "../Models/userStudentAccountModel.js";
+import { userStudentAccount, AdminAccount } from "../Models/userStudentAccountModel.js";
 import TeacherAccount from "../Models/userTeacherModel.js";
 import userImg from "../Models/imageModel.js";
 import Subject from "../Models/subjectsModel.js";
@@ -9,7 +9,16 @@ async function createTableUserAccounts() {
     await userStudentAccount.sync({ alter: false });
     console.log("Students Account table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating UserAccount table", error);
+    console.error("Error checking/updating Student User Account table", error);
+  }
+}
+
+async function createTableUserAdminAccounts() {
+  try {
+    await AdminAccount.sync({ alter: false });
+    console.log("Students Admin Account table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating User Admin Account table", error);
   }
 }
 
@@ -18,7 +27,7 @@ async function createTableTeacherAccountTable() {
     await TeacherAccount.sync({ alter: false });
     console.log("Teacher Account table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating UserAccount table", error);
+    console.error("Error checking/updating Teacher Account table", error);
   }
 }
   
@@ -27,7 +36,7 @@ async function createTableImageTable() {
     await userImg.sync({ alter: false });
     console.log("Image table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating UserAccount table", error);
+    console.error("Error checking/updating Image Account table", error);
   }
 }
 
@@ -36,7 +45,7 @@ async function createTableSubject() {
     await Subject.sync({ alter: false });
     console.log("Subject table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating UserAccount table", error);
+    console.error("Error checking/updating Subject table", error);
   }
 }
 
@@ -45,8 +54,8 @@ async function createTableSection() {
     await Section.sync({ alter: false });
     console.log("Section table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating UserAccount table", error);
+    console.error("Error checking/updating Section table", error);
   }
 }
 
-export { createTableUserAccounts, createTableTeacherAccountTable ,createTableImageTable, createTableSubject, createTableSection };
+export { createTableUserAccounts, createTableUserAdminAccounts ,createTableTeacherAccountTable ,createTableImageTable, createTableSubject, createTableSection };

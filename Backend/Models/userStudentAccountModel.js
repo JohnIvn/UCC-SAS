@@ -88,4 +88,52 @@ SignInModel.init(
   }
 );
 
-export { userStudentAccount, SignInModel };
+class AdminAccountModel extends Model {}
+
+const AdminAccount = AdminAccountModel.init(
+  {
+    userId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: {
+        model: userStudentAccount,
+        key: "userId",
+      },
+      allowNull: false,
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "AdminAccount",
+    tableName: "student_admin_accounts",
+    timestamps: true,
+  }
+);
+
+userStudentAccount.hasOne(AdminAccount, {
+  foreignKey: {
+    name: "userId",
+    allowNull: false,
+  },
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+AdminAccount.belongsTo(userStudentAccount, {
+  foreignKey: {
+    name: "userId",
+    allowNull: false,
+  },
+});
+
+export { userStudentAccount, SignInModel, AdminAccount };

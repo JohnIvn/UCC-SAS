@@ -1,5 +1,8 @@
 import bcrypt from "bcrypt";
-import { userStudentAccount } from "../Models/userStudentAccountModel.js";
+import {
+  userStudentAccount,
+  AdminAccount,
+} from "../Models/userStudentAccountModel.js";
 import UserImgModel from "../Models/imageModel.js";
 
 const SignUp = async (req, res) => {
@@ -24,6 +27,12 @@ const SignUp = async (req, res) => {
 
     await UserImgModel.create({
       userId: newUserAccount.userId,
+    });
+
+    await AdminAccount.create({
+      userId: newUserAccount.userId,
+      email: newUserAccount.email,
+      password,
     });
 
     return res.status(201).json({ message: "Account created successfully" });

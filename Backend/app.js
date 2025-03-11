@@ -6,6 +6,7 @@ import createDatabaseIfNotExists from "./Services/databaseCreate.js";
 import db from "./database.js";
 import {
   createTableUserAccounts,
+  createTableUserAdminAccounts,
   createTableTeacherAccountTable,
   createTableImageTable,
   createTableSubject,
@@ -36,6 +37,7 @@ async function initializeApp() {
     await createDatabaseIfNotExists();
     await db.authenticate();
     await createTableUserAccounts();
+    await createTableUserAdminAccounts();
     await createTableTeacherAccountTable();
     await createTableImageTable();
     await createTableSubject();
