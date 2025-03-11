@@ -4,16 +4,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-class UserAccountModel extends Model {}
+class TeacherAccountModel extends Model {}
 
-const UserAccount = UserAccountModel.init(
+const TeacherAccount = TeacherAccountModel.init(
   {
     userId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    studentNumber: {
+    teacherNumber: {
       type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
@@ -24,7 +24,7 @@ const UserAccount = UserAccountModel.init(
     },
     role: {
       type: DataTypes.STRING,
-      defaultValue: process.env.DEFAULT_ROLE,
+      defaultValue: process.env.DEFAULT_STAFF_ROLE,
       allowNull: false,
     },
     email: {
@@ -48,10 +48,10 @@ const UserAccount = UserAccountModel.init(
   },
   {
     sequelize: db,
-    modelName: "UserAccounts",
-    tableName: "UserAccounts",
+    modelName: "TeacherAccounts",
+    tableName: "Teacher_Accounts",
     timestamps: false,
   }
 );
 
-export default UserAccount;
+export default TeacherAccount;
