@@ -13,6 +13,12 @@ const Section = SectionModel.init(
     name: {
       type: DataTypes.STRING,
     },
+    year: {
+      type: DataTypes.STRING,
+    },
+    section: {
+      type: DataTypes.STRING,
+    },
     description: {
       type: DataTypes.STRING,
     },
