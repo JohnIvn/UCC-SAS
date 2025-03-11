@@ -21,6 +21,14 @@ const userImg = UserImgModel.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      references: {
+        model: userStudentAccount,
+        key: "email",
+      },
+    },
     imagePath: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -36,5 +44,8 @@ const userImg = UserImgModel.init(
 
 UserImgModel.belongsTo(userStudentAccount, { foreignKey: "userId" });
 userStudentAccount.hasOne(UserImgModel, { foreignKey: "userId" });
+
+UserImgModel.belongsTo(userStudentAccount, { foreignKey: "email" });
+userStudentAccount.hasOne(UserImgModel, { foreignKey: "email" });
 
 export default userImg;

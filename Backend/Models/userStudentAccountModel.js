@@ -15,24 +15,23 @@ const userStudentAccount = userStudentAccountModel.init(
     },
     studentNumber: {
       type: DataTypes.STRING,
-      primaryKey: true,
-      allowNull: false,
+      allowNull: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     course: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     year: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     section: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING,

@@ -16,6 +16,7 @@ import {
   insertSectionIfNotExist,
 } from "./Services/valueInserter.js";
 import signInRouter from "./Routes/signInRoute.js";
+import signUpRouter from "./Routes/signUpRoute.js";
 
 dotenv.config();
 const app = express();
@@ -28,6 +29,7 @@ app.use(cors());
 // app.use(express.urlencoded({ extended: true }));
 
 app.use('/signin', signInRouter);
+app.use('/signup', signUpRouter);
 
 async function initializeApp() {
   try {
