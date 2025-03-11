@@ -1,4 +1,5 @@
 import UserAccount from "../Models/userAccountModel.js";
+import ImageModel from "../Models/imageModel.js";
 
 async function createTableUserAccounts() {
   try {
@@ -9,4 +10,13 @@ async function createTableUserAccounts() {
   }
 }
 
-export { createTableUserAccounts };
+async function createTableImageTable() {
+    try {
+      await ImageModel.sync({ alter: false });
+      console.log("Image table is checked and updated if necessary");
+    } catch (error) {
+      console.error("Error checking/updating UserAccount table", error);
+    }
+  }
+
+export { createTableUserAccounts, createTableImageTable };

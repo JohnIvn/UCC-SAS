@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import createDatabaseIfNotExists from "./Services/databaseCreate.js";
-import { createTableUserAccounts } from "./Services/tableCreate.js";
+import { createTableUserAccounts, createTableImageTable } from "./Services/tableCreate.js";
 import db from "./database.js";
 
 dotenv.config();
@@ -16,6 +16,7 @@ async function initializeApp() {
     await createDatabaseIfNotExists();
     await db.authenticate();
     await createTableUserAccounts();
+    await createTableImageTable();
 
     console.log("Tables have been created or checked.");
 
