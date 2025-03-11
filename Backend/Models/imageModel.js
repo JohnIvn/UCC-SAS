@@ -4,7 +4,7 @@ import TeacherAccount from "./userStudentAccountModel.js";
 
 class UserImgModel extends Model {}
 
-UserImgModel.init(
+const userImg = UserImgModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,11 +30,11 @@ UserImgModel.init(
     sequelize: db,
     modelName: "UserImgModel",
     tableName: "user_Account_Img",
-    timestamps: false,
+    timestamps: true,
   }
 );
 
 UserImgModel.belongsTo(TeacherAccount, { foreignKey: "userId" });
 TeacherAccount.hasOne(UserImgModel, { foreignKey: "userId" });
 
-export default UserImgModel;
+export default userImg;

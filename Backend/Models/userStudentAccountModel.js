@@ -22,6 +22,18 @@ const userStudentAccount = userStudentAccountModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    course: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    year: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    section: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     role: {
       type: DataTypes.STRING,
       defaultValue: process.env.DEFAULT_USER_ROLE,
@@ -41,16 +53,12 @@ const userStudentAccount = userStudentAccountModel.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: Sequelize.NOW,
-    },
   },
   {
     sequelize: db,
     modelName: "StudentAccounts",
     tableName: "Student_Accounts",
-    timestamps: false,
+    timestamps: true,
   }
 );
 

@@ -2,7 +2,13 @@ import express from "express";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import createDatabaseIfNotExists from "./Services/databaseCreate.js";
-import { createTableUserAccounts, createTableTeacherAccountTable ,createTableImageTable } from "./Services/tableCreate.js";
+import {
+  createTableUserAccounts,
+  createTableTeacherAccountTable,
+  createTableImageTable,
+  createTableSubject,
+  createTableSection,
+} from "./Services/tableCreate.js";
 import db from "./database.js";
 
 dotenv.config();
@@ -18,13 +24,14 @@ async function initializeApp() {
     await createTableUserAccounts();
     await createTableTeacherAccountTable();
     await createTableImageTable();
+    await createTableSubject();
+    await createTableSection();
 
     console.log("Tables have been created or checked.");
 
     const server = app.listen(process.env.PORT, () => {
-        console.log(`App is listening on port: ${process.env.PORT}`);
+      console.log(`App is listening on port: ${process.env.PORT}`);
     });
-
   } catch (error) {
     console.error("Error initializing the application:", error);
     process.exit(1);

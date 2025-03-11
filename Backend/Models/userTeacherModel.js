@@ -50,7 +50,7 @@ const TeacherAccount = TeacherAccountModel.init(
     sequelize: db,
     modelName: "TeacherAccounts",
     tableName: "Teacher_Accounts",
-    timestamps: false,
+    timestamps: true,
   }
 );
 
