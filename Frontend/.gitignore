@@ -1,6 +1,5 @@
 # Logs
 logs
-package-lock.json
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -12,9 +11,6 @@ node_modules
 dist
 dist-ssr
 *.local
-README.md
-uploads
-
 
 # Editor directories and files
 .vscode/*
@@ -26,4 +22,3 @@ uploads
 *.njsproj
 *.sln
 *.sw?
-
