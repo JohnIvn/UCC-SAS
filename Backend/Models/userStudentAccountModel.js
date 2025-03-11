@@ -62,4 +62,31 @@ const userStudentAccount = userStudentAccountModel.init(
   }
 );
 
-export default userStudentAccount;
+class SignInModel extends Model {}
+
+SignInModel.init(
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      primaryKey: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: process.env.DEFAULT_USER_ROLE,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "SignInModel",
+    tableName: "Student_Accounts",
+    timestamps: true,
+  }
+);
+
+export { userStudentAccount, SignInModel };

@@ -1,4 +1,4 @@
-import StudentAccount from "../Models/userStudentAccountModel.js";
+import { userStudentAccount } from "../Models/userStudentAccountModel.js";
 import TeacherAccount from "../Models/userTeacherModel.js";
 import userImg from "../Models/imageModel.js";
 import Subject from "../Models/subjectsModel.js";
@@ -6,7 +6,7 @@ import Section from "../Models/sectionModel.js";
 
 async function createTableUserAccounts() {
   try {
-    await StudentAccount.sync({ alter: false });
+    await userStudentAccount.sync({ alter: false });
     console.log("Students Account table is checked and updated if necessary");
   } catch (error) {
     console.error("Error checking/updating UserAccount table", error);

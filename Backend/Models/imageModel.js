@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../database.js";
-import TeacherAccount from "./userStudentAccountModel.js";
+import { userStudentAccount } from "./userStudentAccountModel.js";
 
 class UserImgModel extends Model {}
 
@@ -15,7 +15,7 @@ const userImg = UserImgModel.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: TeacherAccount,
+        model: userStudentAccount,
         key: "userId",
       },
       onDelete: "CASCADE",
@@ -34,7 +34,7 @@ const userImg = UserImgModel.init(
   }
 );
 
-UserImgModel.belongsTo(TeacherAccount, { foreignKey: "userId" });
-TeacherAccount.hasOne(UserImgModel, { foreignKey: "userId" });
+UserImgModel.belongsTo(userStudentAccount, { foreignKey: "userId" });
+userStudentAccount.hasOne(UserImgModel, { foreignKey: "userId" });
 
 export default userImg;
