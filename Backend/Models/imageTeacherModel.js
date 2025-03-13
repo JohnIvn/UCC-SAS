@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../database.js";
-import TeacherAccount from "./userTeacherModel.js";
+import TeacherAccount from "./teacherAccountModel.js";
 
 class imageTeacherModel extends Model {}
 

@@ -1,5 +1,5 @@
-import { userStudentAccount } from "./userStudentAccountModel";
-import { AdminAccount } from "./userStudentAccountModel";
+import { userStudentAccount } from "./studentAccountModel";
+import { AdminAccount } from "./studentAccountModel";
 import UserImgModel from "./imageStudentModel";
 import SectionModel from "./sectionModel";
 import SubjectModel from "./subjectsModel";

@@ -17,6 +17,7 @@ const userStudentAccount = userStudentAccountModel.init(
     studentNumber: {
       type: DataTypes.STRING,
       allowNull: true,
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,

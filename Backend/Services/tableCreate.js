@@ -1,13 +1,14 @@
 import {
   userStudentAccount,
   AdminAccount,
-} from "../Models/userStudentAccountModel.js";
-import TeacherAccount from "../Models/userTeacherModel.js";
+} from "../Models/studentAccountModel.js";
+import TeacherAccount from "../Models/teacherAccountModel.js";
 import userImg from "../Models/imageStudentModel.js";
 import Subject from "../Models/subjectsModel.js";
 import Section from "../Models/sectionModel.js";
 import imageTeacher from "../Models/imageTeacherModel.js";
 import Course from "../Models/courseModel.js";
+import studentSubjects from "../Models/studentAccountSubjects.js";
 
 async function createTableUserAccounts() {
   try {
@@ -83,6 +84,15 @@ async function createTableCourse() {
   }
 }
 
+async function createTabletudentSubjects() {
+  try {
+    await studentSubjects.sync({ alter: false });
+    console.log("Student Subjects table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating Student Subjects table", error);
+  }
+}
+
 export {
   createTableUserAccounts,
   createTableUserAdminAccounts,
@@ -91,5 +101,6 @@ export {
   createTeacherTableImageTable,
   createTableSubject,
   createTableSection,
-  createTableCourse
+  createTableCourse,
+  createTabletudentSubjects,
 };

@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import {
   userStudentAccount,
   AdminAccount,
-} from "../Models/userStudentAccountModel.js";
+} from "../Models/studentAccountModel.js";
 import UserImgModel from "../Models/imageStudentModel.js";
 
 const SignUp = async (req, res) => {

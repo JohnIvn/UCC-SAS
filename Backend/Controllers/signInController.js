@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import { SignInModel } from "../Models/userStudentAccountModel.js";
+import { SignInModel } from "../Models/studentAccountModel.js";
 
 dotenv.config();
 
