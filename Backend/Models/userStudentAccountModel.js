@@ -121,19 +121,4 @@ const AdminAccount = AdminAccountModel.init(
   }
 );
 
-userStudentAccount.hasOne(AdminAccount, {
-  foreignKey: {
-    name: "userId",
-    allowNull: false,
-  },
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
-AdminAccount.belongsTo(userStudentAccount, {
-  foreignKey: {
-    name: "userId",
-    allowNull: false,
-  },
-});
-
 export { userStudentAccount, SignInModel, AdminAccount };

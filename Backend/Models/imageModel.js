@@ -42,10 +42,4 @@ const userImg = UserImgModel.init(
   }
 );
 
-UserImgModel.belongsTo(userStudentAccount, { foreignKey: "userId" });
-userStudentAccount.hasOne(UserImgModel, { foreignKey: "userId" });
-
-UserImgModel.belongsTo(userStudentAccount, { foreignKey: "email" });
-userStudentAccount.hasOne(UserImgModel, { foreignKey: "email" });
-
 export default userImg;
