@@ -1,18 +1,42 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../CSS/landingPageDesign.css";
 import UCCLogo from "../assets/uccFavicon.png";
-import StudentModal from "../components/studentModal.jsx"; 
+import StudentModal from "../components/studentModal.jsx";
+import api from '../api.js'
 
 const StudentPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("profile");
-  const [modalContent, setModalContent] = useState(""); 
-  const navigate = useNavigate(); 
+  const [modalContent, setModalContent] = useState("");
+  const [userName, setUserName] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({});
+  const [myAccount, setMyAccount] = useState({});
+
+useEffect(() => {
+  const fetchUserProfile = async () => {
+    try {
+      const response = await api.get("/profile");
+      setFormData(response.data);
+      setMyAccount(response.data);
+
+      if (response.data.name) {
+        setUserName(response.data.name);
+      }
+    } catch (error) {
+      console.error("Error fetching user profile:", error.message);
+      alert("Failed to load user profile. Please try again later.");
+    }
+  };
+
+  fetchUserProfile();
+}, []);
+
 
   const handleClose = () => setShowModal(false);
   const handleShow = (modalType) => {
-    setModalContent(modalType); 
+    setModalContent(modalType);
     setShowModal(true);
   };
 
@@ -23,9 +47,10 @@ const StudentPage = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    navigate("/"); 
-    window.location.reload(); 
+    navigate("/");
+    window.location.reload();
   };
+
   return (
     <div className="bg-dark text-white vh-100 d-flex flex-column">
       <nav className="navbar navbar-dark bg-dark w-100 p-3">
@@ -90,6 +115,9 @@ const StudentPage = () => {
         {content === "profile" && (
           <>
             <h1 className="fw-bold">Student Profile</h1>
+            {userName && (
+              <h3 className="text-secondary">Welcome, {userName}!</h3>
+            )}
             <p className="lead">Manage your profile details</p>
             <div className="d-flex flex-wrap justify-content-center gap-4 mt-3">
               <button
