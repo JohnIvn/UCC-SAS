@@ -3,6 +3,7 @@ import Azares from '../assets/Azares.jpg'
 import Montenegro from '../assets/Montenegro.jpg'
 import Obien from '../assets/Obien.png'
 import Vergara from '../assets/Vergara.jpg'
+import Martinez from '../assets/Martinez.jpg'
 import QRCode from '../assets/QR.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
@@ -10,18 +11,17 @@ import SquareButton from '../components/SquareButton'
 import CustomInputA from '../components/CustomInputA'
 
 export default function HomePage() {
-	const numberFactor = Math.floor(Math.random() * 5)
+	const numberFactor = Math.floor(Math.random() * 6)
 
 	const RenderRandomImg = () => {
-		let elements = [Cania, Montenegro, Obien, Vergara, Azares]
+		let elements = [Cania, Montenegro, Obien, Vergara, Azares, Martinez]
 		return elements[numberFactor]
 	}
 	
 	const RenderRandomName = () => {
-		let names = ["Cania, Matthew Gabriel M.", "Montenegro, Jan Ivan", "Obien, Janelle", "Vergara, Andreana", "Azares, JVincent"]
+		let names = ["Cania, Matthew Gabriel M.", "Montenegro, Jan Ivan", "Obien, Janelle", "Vergara, Andreana", "Azares, JVincent", "Martinez Kiel"]
 		return names[numberFactor]
 	}
-
 
 	return (
 		<section
