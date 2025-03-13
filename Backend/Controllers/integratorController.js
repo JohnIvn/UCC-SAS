@@ -1,4 +1,5 @@
-import { Op } from "sequelize";  
+import { Op } from "sequelize";
+import bcrypt from "bcrypt";
 import { userStudentAccount } from "../Models/studentAccountModel.js";
 
 const integratorAddStudentAccount = async (req, res) => {
@@ -42,6 +43,9 @@ const integratorAddStudentAccount = async (req, res) => {
             return res.status(409).json({ message: "Student account with this number or email already exists" });
         }
 
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         const newStudent = await userStudentAccount.create({
             studentNumber,
             name,
@@ -51,7 +55,7 @@ const integratorAddStudentAccount = async (req, res) => {
             role,
             email,
             phoneNumber,
-            password,
+            password: hashedPassword, 
         });
 
         console.log("New student added:", newStudent); 
