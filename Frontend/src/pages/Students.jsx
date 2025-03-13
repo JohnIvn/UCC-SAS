@@ -53,26 +53,66 @@ export default function Students() {
             aria-label="Search"
         />
     </form>
+
+	</div>
+	<div class="flex justify-center items-start w-full h-5/6 border p-4">
+		<div class="w-full overflow-x-auto">
+			<table class="w-full border-collapse border border-gray-300 shadow-lg">
+				
+				<thead class="bg-gray-800 text-white">
+					<tr>
+						<th class="border border-gray-300 px-4 py-2">#</th>
+						<th class="border border-gray-300 px-4 py-2">Student Name</th>
+						<th class="border border-gray-300 px-4 py-2">Student No.</th>
+						<th class="border border-gray-300 px-4 py-2">Course/Section</th>
+						<th class="border border-gray-300 px-4 py-2">Subject (Today)</th>
+						<th class="border border-gray-300 px-4 py-2">Attendance</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+
+    <tr class="border border-gray-300">
+        <td class="border px-4 py-2 text-center">1</td>
+        <td class="border px-4 py-2">Lastname, Firstname Mi.</td>
+        <td class="border px-4 py-2 text-center">20231104-N</td>
+        <td class="border px-4 py-2 text-center">BSIT-2B</td>
+        <td class="border px-4 py-2">Application Development</td>
+        <td class="border px-4 py-2 text-center">
+            <label class="inline-flex items-center">
+                <input type="radio" name="attendance_1" value="present" class="w-4 h-4"></input>
+                <span class="ml-2">Present</span>
+            </label>
+            <label class="inline-flex items-center ml-4">
+                <input type="radio" name="attendance_1" value="absent" class="w-4 h-4"></input>
+                <span class="ml-2">Absent</span>
+            </label>
+        </td>
+    </tr>
+
+    
+    <tr class="border border-gray-300">
+        <td class="border px-4 py-2 text-center">2</td>
+        <td class="border px-4 py-2">Lastname, Firstname Mi.</td>
+        <td class="border px-4 py-2 text-center">20231105-N</td>
+        <td class="border px-4 py-2 text-center">BSIT-2B</td>
+        <td class="border px-4 py-2">Application Development</td>
+        <td class="border px-4 py-2 text-center">
+            <label class="inline-flex items-center">
+                <input type="radio" name="attendance_2" value="present" class="w-4 h-4"></input>
+                <span class="ml-2">Present</span>
+            </label>
+            <label class="inline-flex items-center ml-4">
+                <input type="radio" name="attendance_2" value="absent" class="w-4 h-4"></input>
+                <span class="ml-2">Absent</span>
+            </label>
+        </td>
+    </tr>
+</tbody>
+			</table>
+		</div>
 </div>
-
-				<div
-				className="flex justify-center items-start w-full h-5/6 border"
-				>
-				<div
-					className="flex w-full h-1/2 justify-center items-center"
-				>
-					<h1>Hello</h1>
-
-				</div>
-
-				<div
-					className="flex w-full h-1/2 justify-center items-center"
-				>
-					<h1>Hello</h1>
-
-				</div>
-			</div>
-			</div>
+	</div>
 
 
 		</section>
