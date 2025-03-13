@@ -1,10 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../database.js";
-import { userStudentAccount } from "./userStudentAccountModel.js";
+import TeacherAccount from "./userTeacherModel.js";
 
-class UserImgModel extends Model {}
+class imageTeacherModel extends Model {}
 
-const userImg = UserImgModel.init(
+const imageTeacher = imageTeacherModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,7 +15,7 @@ const userImg = UserImgModel.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: userStudentAccount,
+        model: TeacherAccount,
         key: "userId",
       },
       onDelete: "CASCADE",
@@ -25,7 +25,7 @@ const userImg = UserImgModel.init(
       type: DataTypes.STRING,
       allowNull: true,
       references: {
-        model: userStudentAccount,
+        model: TeacherAccount,
         key: "email",
       },
     },
@@ -36,10 +36,10 @@ const userImg = UserImgModel.init(
   },
   {
     sequelize: db,
-    modelName: "UserImgModel",
-    tableName: "Student_Account_Img",
+    modelName: "imageTeacherModel",
+    tableName: "Teacher_Account_Img",
     timestamps: true,
   }
 );
 
-export default userImg;
+export default imageTeacher;

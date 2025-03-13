@@ -9,6 +9,7 @@ import {
   createTableUserAdminAccounts,
   createTableTeacherAccountTable,
   createTableImageTable,
+  createTeacherTableImageTable,
   createTableSubject,
   createTableSection,
 } from "./Services/tableCreate.js";
@@ -40,6 +41,7 @@ async function initializeApp() {
     await createTableUserAdminAccounts();
     await createTableTeacherAccountTable();
     await createTableImageTable();
+    await createTeacherTableImageTable();
     await createTableSubject();
     await createTableSection();
 

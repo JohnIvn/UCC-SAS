@@ -3,6 +3,7 @@ import TeacherAccount from "../Models/userTeacherModel.js";
 import userImg from "../Models/imageModel.js";
 import Subject from "../Models/subjectsModel.js";
 import Section from "../Models/sectionModel.js";
+import imageTeacher from "../Models/imageTeacherModel.js";
 
 async function createTableUserAccounts() {
   try {
@@ -34,9 +35,18 @@ async function createTableTeacherAccountTable() {
 async function createTableImageTable() {
   try {
     await userImg.sync({ alter: false });
-    console.log("Image table is checked and updated if necessary");
+    console.log("Student Image table is checked and updated if necessary");
   } catch (error) {
-    console.error("Error checking/updating Image Account table", error);
+    console.error("Error checking/updating Student Image Account table", error);
+  }
+}
+
+async function createTeacherTableImageTable() {
+  try {
+    await imageTeacher.sync({ alter: false });
+    console.log("Teacher Image table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating Teacher Image Account table", error);
   }
 }
 
@@ -58,4 +68,4 @@ async function createTableSection() {
   }
 }
 
-export { createTableUserAccounts, createTableUserAdminAccounts ,createTableTeacherAccountTable ,createTableImageTable, createTableSubject, createTableSection };
+export { createTableUserAccounts, createTableUserAdminAccounts ,createTableTeacherAccountTable ,createTableImageTable, createTeacherTableImageTable, createTableSubject, createTableSection };
