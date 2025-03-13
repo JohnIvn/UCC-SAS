@@ -37,15 +37,9 @@ const userImg = UserImgModel.init(
   {
     sequelize: db,
     modelName: "UserImgModel",
-    tableName: "user_Account_Img",
+    tableName: "Student_Account_Img",
     timestamps: true,
   }
 );
-
-UserImgModel.belongsTo(userStudentAccount, { foreignKey: "userId" });
-userStudentAccount.hasOne(UserImgModel, { foreignKey: "userId" });
-
-UserImgModel.belongsTo(userStudentAccount, { foreignKey: "email" });
-userStudentAccount.hasOne(UserImgModel, { foreignKey: "email" });
 
 export default userImg;

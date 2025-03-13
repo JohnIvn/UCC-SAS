@@ -3,7 +3,7 @@ import {
   userStudentAccount,
   AdminAccount,
 } from "../Models/userStudentAccountModel.js";
-import UserImgModel from "../Models/imageModel.js";
+import UserImgModel from "../Models/imageStudentModel.js";
 
 const SignUp = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;

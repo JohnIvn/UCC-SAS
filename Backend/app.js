@@ -9,8 +9,10 @@ import {
   createTableUserAdminAccounts,
   createTableTeacherAccountTable,
   createTableImageTable,
+  createTeacherTableImageTable,
   createTableSubject,
   createTableSection,
+  createTableCourse
 } from "./Services/tableCreate.js";
 import { 
   insertSubjectIfNotExist,
@@ -36,12 +38,14 @@ async function initializeApp() {
   try {
     await createDatabaseIfNotExists();
     await db.authenticate();
+    await createTableSection();
     await createTableUserAccounts();
     await createTableUserAdminAccounts();
     await createTableTeacherAccountTable();
     await createTableImageTable();
+    await createTeacherTableImageTable();
     await createTableSubject();
-    await createTableSection();
+    await createTableCourse();
 
     console.log("Tables have been created or checked.");
 

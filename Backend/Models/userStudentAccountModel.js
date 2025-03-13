@@ -1,6 +1,7 @@
 import db from "../database.js";
 import { Sequelize, DataTypes, Model } from "sequelize";
 import dotenv from "dotenv";
+import Section from "./sectionModel.js";
 
 dotenv.config();
 
@@ -27,11 +28,17 @@ const userStudentAccount = userStudentAccountModel.init(
     },
     year: {
       type: DataTypes.STRING,
-      allowNull: true,
+      references: {
+        model: Section,
+        key: "year",
+      }
     },
     section: {
       type: DataTypes.STRING,
-      allowNull: true,
+      references: {
+        model: Section,
+        key: "section",
+      }
     },
     role: {
       type: DataTypes.STRING,
@@ -120,20 +127,5 @@ const AdminAccount = AdminAccountModel.init(
     timestamps: true,
   }
 );
-
-userStudentAccount.hasOne(AdminAccount, {
-  foreignKey: {
-    name: "userId",
-    allowNull: false,
-  },
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
-AdminAccount.belongsTo(userStudentAccount, {
-  foreignKey: {
-    name: "userId",
-    allowNull: false,
-  },
-});
 
 export { userStudentAccount, SignInModel, AdminAccount };

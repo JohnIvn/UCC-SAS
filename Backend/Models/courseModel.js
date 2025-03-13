@@ -1,25 +1,20 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../database.js";
 
-class SectionModel extends Model {}
+class CourseModel extends Model {}
 
-const Section = SectionModel.init(
+const Course = CourseModel.init(
   {
-    Section_id: {
+    Course_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
+    Course_code: {
+      type: DataTypes.STRING,
+    },
     name: {
       type: DataTypes.STRING,
-    },
-    year: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    section: {
-      type: DataTypes.STRING,
-      unique: true,
     },
     description: {
       type: DataTypes.STRING,
@@ -27,10 +22,10 @@ const Section = SectionModel.init(
   },
   {
     sequelize: db,
-    modelName: "sectionModel",
-    tableName: "Section_Table",
+    modelName: "CourseModel",
+    tableName: "Course_Table",
     timestamps: true,
   }
 );
 
-export default Section;
+export default Course;
