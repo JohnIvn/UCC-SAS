@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import StudentSuccessToast from "./StudentSucces.jsx";
+import { useNavigate } from "react-router-dom";
 
 const StudentModal = ({ showModal, handleClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,41 +31,62 @@ const StudentModal = ({ showModal, handleClose }) => {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSignIn = async () => {
     if (!name.trim() || !password.trim()) {
       return;
     }
 
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:3000/signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: name, password }), 
+        body: JSON.stringify({ email: name, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message);
+        console.log("Response from backend:", data);
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role", data.role);
+
+        console.log(data.token);
+        console.log(localStorage.getItem("role"));
+        console.log("Sign in successful:", data);
+        console.log("Redirect URL:", data.redirectTo);
+
+        if (data.redirectTo) {
+          console.log("Redirecting to:", data.redirectTo);
+          navigate(data.redirectTo);
+        } else {
+          console.log("Redirecting to students");
+          navigate("/students");
+        }
+
         setShowToast(true);
         handleClose();
       } else {
         console.error("Error submitting login data");
+        setError("Invalid credentials, please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
+      setError(error.message || "Failed to sign in. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleModalClose = () => {
     setName("");
-    setPassword(""); 
+    setPassword("");
+    setError("");
     handleClose();
   };
 
@@ -77,7 +102,12 @@ const StudentModal = ({ showModal, handleClose }) => {
               Welcome! Student <br />
               <span>Enter your credentials here.</span>
             </p>
-            <Form onSubmit={handleSubmit}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSignIn();
+              }}
+            >
               <Form.Group className="mb-3" controlId="formBasicName">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -122,6 +152,10 @@ const StudentModal = ({ showModal, handleClose }) => {
                 />
               </Form.Group>
 
+              {error && (
+                <div className="alert alert-danger">{error}</div> 
+              )}
+
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleModalClose}>
                   Close
@@ -129,9 +163,9 @@ const StudentModal = ({ showModal, handleClose }) => {
                 <Button
                   variant="primary"
                   type="submit"
-                  disabled={!name.trim() || !password.trim()}
+                  disabled={loading || !name.trim() || !password.trim()}
                 >
-                  Proceed as Student
+                  {loading ? "Loading..." : "Proceed as Student"}
                 </Button>
               </Modal.Footer>
             </Form>
