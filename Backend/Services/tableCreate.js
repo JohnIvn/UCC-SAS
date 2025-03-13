@@ -2,7 +2,7 @@ import {
   userStudentAccount,
   AdminAccount,
 } from "../Models/studentAccountModel.js";
-import TeacherAccount from "../Models/teacherAccountModel.js";
+import { TeacherAccount } from "../Models/teacherAccountModel.js";
 import userImg from "../Models/imageStudentModel.js";
 import Subject from "../Models/subjectsModel.js";
 import Section from "../Models/sectionModel.js";

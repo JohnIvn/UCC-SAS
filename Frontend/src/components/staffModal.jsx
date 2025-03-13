@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import StudentSuccessToast from "./StudentSucces.jsx";
+import StaffSuccessToast from "./staffSuccess.jsx";
 
-const StudentModal = ({ showModal, handleClose }) => {
+const StaffModal = ({ showModal, handleClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [showToast, setShowToast] = useState(false);
@@ -38,7 +38,7 @@ const StudentModal = ({ showModal, handleClose }) => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/signin", {
+      const response = await fetch("http://localhost:3000/staff-signin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,12 +69,12 @@ const StudentModal = ({ showModal, handleClose }) => {
     <>
       <Modal show={showModal} onHide={handleModalClose} size="md" centered>
         <Modal.Header closeButton>
-          <Modal.Title>Student Mode</Modal.Title>
+          <Modal.Title>Staff Mode</Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex justify-content-center align-items-center">
           <div className="w-100">
             <p>
-              Welcome! Student <br />
+              Welcome! Staff <br />
               <span>Enter your credentials here.</span>
             </p>
             <Form onSubmit={handleSubmit}>
@@ -131,7 +131,7 @@ const StudentModal = ({ showModal, handleClose }) => {
                   type="submit"
                   disabled={!name.trim() || !password.trim()}
                 >
-                  Proceed as Student
+                  Proceed as Staff
                 </Button>
               </Modal.Footer>
             </Form>
@@ -139,7 +139,7 @@ const StudentModal = ({ showModal, handleClose }) => {
         </Modal.Body>
       </Modal>
 
-      <StudentSuccessToast
+      <StaffSuccessToast
         show={showToast}
         handleClose={() => setShowToast(false)}
       />
@@ -147,4 +147,4 @@ const StudentModal = ({ showModal, handleClose }) => {
   );
 };
 
-export default StudentModal;
+export default StaffModal;

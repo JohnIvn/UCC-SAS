@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import "../CSS/LandingPageDesign.css";
 import UCCLogo from "../assets/uccFavicon.png";
 import GuestModal from "../components/guestModal.jsx";
+import StudentModal from "../components/studentModal.jsx";
+import StaffModal from "../components/staffModal.jsx";
+import Card1 from "../components/card1.jsx";
+import Card2 from "../components/card2.jsx";
 
 const LandingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [content, setContent] = useState("home");
+  const [modalContent, setModalContent] = useState("");  // New state for modal content
 
   const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleShow = (modalType) => {
+    setModalContent(modalType);  // Set the type of modal to show
+    setShowModal(true);
+  };
 
   const handleContentChange = (newContent) => {
     setContent(newContent);
@@ -30,30 +38,25 @@ const LandingPage = () => {
           <div>
             <a
               href="#"
-              className={`text-secondary text-decoration-none mx-3 fw-bold border-white pb-1 ${
-                content === "home" ? "active text-white" : ""
-              }`}
+              className={`text-secondary text-decoration-none mx-3 fw-bold border-white pb-1 ${content === "home" ? "active text-white" : ""}`}
               onClick={() => handleContentChange("home")}
             >
               Home
             </a>
             <a
               href="#"
-              className={`text-secondary text-decoration-none mx-3 ${
-                content === "contact" ? "active text-white" : ""
-              }`}
+              className={`text-secondary text-decoration-none mx-3 ${content === "contact" ? "active text-white" : ""}`}
               onClick={() => handleContentChange("contact")}
             >
               Contact
             </a>
             <a
               href="#"
-              className={`text-secondary text-decoration-none mx-3 ${
-                content === "privacy" ? "active text-white" : ""
-              }`}
+              className={`text-secondary text-decoration-none mx-3 ${content === "privacy" ? "active text-white" : ""}`}
               onClick={() => handleContentChange("privacy")}
             >
               Privacy Policy
+              
             </a>
           </div>
         </div>
@@ -67,15 +70,19 @@ const LandingPage = () => {
             <div className="d-flex flex-wrap justify-content-center gap-4 mt-3">
               <button
                 className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover"
-                onClick={handleShow}
+                onClick={() => handleShow("guest")}
               >
-                <i className="bi bi-person-slash me-3 fs-4 icon-hover"></i>{" "}
-                Guest
+                <i className="bi bi-person-slash me-3 fs-4 icon-hover"></i> Guest
               </button>
-              <button className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover">
+              <button
+                className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover"
+                onClick={() => handleShow("student")}
+              >
                 <i className="bi bi-person me-3 fs-4 icon-hover"></i> Student
               </button>
-              <button className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover">
+              <button className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover"
+                onClick={() => handleShow("staff")}
+              >
                 <i className="bi bi-person-lock me-3 fs-4 icon-hover"></i> Admin
               </button>
             </div>
@@ -85,21 +92,22 @@ const LandingPage = () => {
           <>
             <h1>Contact Us</h1>
             <p>If you have any questions, feel free to reach out to us!</p>
-            {/* Add your contact information or form here */}
+            <br /> <br />
+            <Card2 />
           </>
         )}
         {content === "privacy" && (
           <>
             <h1>Privacy Policy</h1>
-            <p>
-              Your privacy is important to us. Here's how we handle your data...
-            </p>
-            {/* Add your privacy policy details here */}
+            <p>Your privacy is important to us. Here's how we handle your data...</p>
+            <Card1/>
           </>
         )}
       </div>
 
-      <GuestModal showModal={showModal} handleClose={handleClose} />
+      {modalContent === "guest" && <GuestModal showModal={showModal} handleClose={handleClose} />}
+      {modalContent === "student" && <StudentModal showModal={showModal} handleClose={handleClose} />}
+      {modalContent === "staff" && <StaffModal showModal={showModal} handleClose={handleClose} />}
     </div>
   );
 };
