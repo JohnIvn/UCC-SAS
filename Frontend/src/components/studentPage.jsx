@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../CSS/landingPageDesign.css";
 import UCCLogo from "../assets/uccFavicon.png";
-import StudentModal from "../components/studentModal.jsx";
-import api from '../api.js'
+import ChangeModal from "./changeModal.jsx";
+import ShowProfile from "./showProfileModal.jsx";
+import api from "../api.js";
 
 const StudentPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,25 +15,26 @@ const StudentPage = () => {
   const [formData, setFormData] = useState({});
   const [myAccount, setMyAccount] = useState({});
 
-useEffect(() => {
-  const fetchUserProfile = async () => {
-    try {
-      const response = await api.get("/profile");
-      setFormData(response.data);
-      setMyAccount(response.data);
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get("/profile");
+        setFormData(response.data);
+        setMyAccount(response.data);
 
-      if (response.data.name) {
-        setUserName(response.data.name);
+        console.log(response.data);
+
+        if (response.data.name) {
+          setUserName(response.data.name);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error.message);
+        alert("Failed to load user profile. Please try again later.");
       }
-    } catch (error) {
-      console.error("Error fetching user profile:", error.message);
-      alert("Failed to load user profile. Please try again later.");
-    }
-  };
+    };
 
-  fetchUserProfile();
-}, []);
-
+    fetchUserProfile();
+  }, []);
 
   const handleClose = () => setShowModal(false);
   const handleShow = (modalType) => {
@@ -122,9 +124,9 @@ useEffect(() => {
             <div className="d-flex flex-wrap justify-content-center gap-4 mt-3">
               <button
                 className="btn btn-dark-green btn-lg fw-bold px-5 py-3 d-flex align-items-center button-hover"
-                onClick={() => handleShow("editProfile")}
+                onClick={() => handleShow("ShowProfile")}
               >
-                <i className="bi bi-pencil me-3 fs-4 icon-hover"></i> Edit
+                <i className="bi bi-pencil me-3 fs-4 icon-hover"></i> Show
                 Profile
               </button>
               <button
@@ -157,11 +159,20 @@ useEffect(() => {
         )}
       </div>
 
-      {modalContent === "editProfile" && (
-        <StudentModal showModal={showModal} handleClose={handleClose} />
+      {modalContent === "ShowProfile" && (
+        <ShowProfile
+          showModal={showModal}
+          handleClose={handleClose}
+          modalContent="viewProfile"
+          userProfile={formData}
+        />
       )}
       {modalContent === "changePassword" && (
-        <StudentModal showModal={showModal} handleClose={handleClose} />
+        <ChangeModal
+          showModal={showModal}
+          handleClose={handleClose}
+          userEmail={formData.email} 
+        />
       )}
     </div>
   );
