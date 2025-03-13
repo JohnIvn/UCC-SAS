@@ -15,9 +15,11 @@ const Section = SectionModel.init(
     },
     year: {
       type: DataTypes.STRING,
+      unique: true,
     },
     section: {
       type: DataTypes.STRING,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,
