@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import createDatabaseIfNotExists from "./Services/databaseCreate.js";
 import db from "./database.js";
+import { createTableAimsStudentAccounts } from "./Services/tableCreate.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +18,7 @@ async function initializeApp() {
   try {
     await createDatabaseIfNotExists();
     await db.authenticate();
+    await createTableAimsStudentAccounts();
 
     console.log("Tables have been created or checked.");
 
