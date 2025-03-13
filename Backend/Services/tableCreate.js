@@ -1,9 +1,13 @@
-import { userStudentAccount, AdminAccount } from "../Models/userStudentAccountModel.js";
+import {
+  userStudentAccount,
+  AdminAccount,
+} from "../Models/userStudentAccountModel.js";
 import TeacherAccount from "../Models/userTeacherModel.js";
-import userImg from "../Models/imageModel.js";
+import userImg from "../Models/imageStudentModel.js";
 import Subject from "../Models/subjectsModel.js";
 import Section from "../Models/sectionModel.js";
 import imageTeacher from "../Models/imageTeacherModel.js";
+import Course from "../Models/courseModel.js";
 
 async function createTableUserAccounts() {
   try {
@@ -17,7 +21,9 @@ async function createTableUserAccounts() {
 async function createTableUserAdminAccounts() {
   try {
     await AdminAccount.sync({ alter: false });
-    console.log("Students Admin Account table is checked and updated if necessary");
+    console.log(
+      "Students Admin Account table is checked and updated if necessary"
+    );
   } catch (error) {
     console.error("Error checking/updating User Admin Account table", error);
   }
@@ -31,7 +37,7 @@ async function createTableTeacherAccountTable() {
     console.error("Error checking/updating Teacher Account table", error);
   }
 }
-  
+
 async function createTableImageTable() {
   try {
     await userImg.sync({ alter: false });
@@ -68,4 +74,22 @@ async function createTableSection() {
   }
 }
 
-export { createTableUserAccounts, createTableUserAdminAccounts ,createTableTeacherAccountTable ,createTableImageTable, createTeacherTableImageTable, createTableSubject, createTableSection };
+async function createTableCourse() {
+  try {
+    await Course.sync({ alter: false });
+    console.log("Course table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating Course table", error);
+  }
+}
+
+export {
+  createTableUserAccounts,
+  createTableUserAdminAccounts,
+  createTableTeacherAccountTable,
+  createTableImageTable,
+  createTeacherTableImageTable,
+  createTableSubject,
+  createTableSection,
+  createTableCourse
+};

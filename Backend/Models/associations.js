@@ -1,6 +1,6 @@
 import { userStudentAccount } from "./userStudentAccountModel";
 import { AdminAccount } from "./userStudentAccountModel";
-import UserImgModel from "./imageModel";
+import UserImgModel from "./imageStudentModel";
 import SectionModel from "./sectionModel";
 import SubjectModel from "./subjectsModel";
 

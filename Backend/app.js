@@ -12,6 +12,7 @@ import {
   createTeacherTableImageTable,
   createTableSubject,
   createTableSection,
+  createTableCourse
 } from "./Services/tableCreate.js";
 import { 
   insertSubjectIfNotExist,
@@ -44,7 +45,7 @@ async function initializeApp() {
     await createTableImageTable();
     await createTeacherTableImageTable();
     await createTableSubject();
-
+    await createTableCourse();
 
     console.log("Tables have been created or checked.");
 
