@@ -15,6 +15,7 @@ import {
   createTableCourse,
   createTabletudentSubjects,
   createTableOffenses,
+  createTableOGuest
 } from "./Services/tableCreate.js";
 import {
   insertSubjectIfNotExist,
@@ -24,6 +25,7 @@ import {
 import signInRouter from "./Routes/signInRoute.js";
 import signUpRouter from "./Routes/signUpRoute.js";
 import integratorRouter from "./Routes/integratorRoute.js";
+import addGuestRouter from "./Routes/guestRoute.js";
 import { integratorInserter } from "./Services/integratorInserter.js";
 
 dotenv.config();
@@ -36,6 +38,7 @@ app.use(cors());
 app.use("/signin", signInRouter);
 app.use("/signup", signUpRouter);
 app.use("/aimsStudentAccounts", integratorRouter);
+app.use("/add-guest", addGuestRouter); 
 
 async function initializeApp() {
   try {
@@ -51,6 +54,7 @@ async function initializeApp() {
     await createTeacherTableImageTable();
     await createTabletudentSubjects();
     await createTableOffenses();
+    await createTableOGuest();
 
     console.log("Tables have been created or checked.");
 

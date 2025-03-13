@@ -10,6 +10,7 @@ import imageTeacher from "../Models/imageTeacherModel.js";
 import Course from "../Models/courseModel.js";
 import studentSubjects from "../Models/studentAccountSubjects.js";
 import Offenses from "../Models/offensesTable.js";
+import Guest from "../Models/guestAccountModel.js";
 
 async function createTableUserAccounts() {
   try {
@@ -103,6 +104,15 @@ async function createTableOffenses() {
   }
 }
 
+async function createTableOGuest() {
+  try {
+    await Guest.sync({ alter: false });
+    console.log("Guest table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating Guest Subjects table", error);
+  }
+}
+
 export {
   createTableUserAccounts,
   createTableUserAdminAccounts,
@@ -114,4 +124,5 @@ export {
   createTableCourse,
   createTabletudentSubjects,
   createTableOffenses,
+  createTableOGuest,
 };
