@@ -28,6 +28,7 @@ import signUpRouter from "./Routes/signUpRoute.js";
 import integratorRouter from "./Routes/integratorRoute.js";
 import addGuestRouter from "./Routes/guestRoute.js";
 import staffSignIn from "./Routes/staffSignInRoute.js";
+import studentProfile from "./Routes/studentProfileRoute.js"
 import { integratorInserter } from "./Services/integratorInserter.js";
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use("/signup", signUpRouter);
 app.use("/aimsStudentAccounts", integratorRouter);
 app.use("/add-guest", addGuestRouter); 
 app.use("/staff-signin", staffSignIn);
+app.use("/profile", studentProfile);
 
 async function initializeApp() {
   try {
