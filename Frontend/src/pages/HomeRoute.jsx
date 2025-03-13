@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./HomePage";
 import MainAside from "../partials/Aside";
-
+import Students from "./Students";
 
 export default function HomeRoute () {
 
@@ -16,7 +16,7 @@ export default function HomeRoute () {
 			>
 			<Routes>
 				<Route path="/" element={<HomePage/>}/>
-				{/* <Route path="/" element={}/> */}
+				<Route path="/students" element={<Students/>}/>
 
 			</Routes>
 			</div>

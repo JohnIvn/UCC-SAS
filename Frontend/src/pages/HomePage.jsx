@@ -12,7 +12,7 @@ export default function HomePage() {
 				<div
 					className="flex w-full h-1/2 justify-center items-center bg-white rounded-xl shadow-2xl"
 				>
-					<h1>Hello</h1>
+					<h1>Stfu </h1>
 
 				</div>
 				<div
