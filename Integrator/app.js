@@ -5,6 +5,8 @@ import cors from "cors";
 import createDatabaseIfNotExists from "./Services/databaseCreate.js";
 import db from "./database.js";
 import { createTableAimsStudentAccounts } from "./Services/tableCreate.js";
+import { insertStudentsInfo } from "./Services/studentInserter.js";
+import studentRoute from "./Routes/aimsStudentAccountsRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -14,11 +16,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
+app.use('/aimsStudentAccounts', studentRoute);
+
 async function initializeApp() {
   try {
     await createDatabaseIfNotExists();
     await db.authenticate();
     await createTableAimsStudentAccounts();
+
+    await insertStudentsInfo();
 
     console.log("Tables have been created or checked.");
 

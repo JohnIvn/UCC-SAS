@@ -14,27 +14,28 @@ import {
   createTableSection,
   createTableCourse,
   createTabletudentSubjects,
-  createTableOffenses
+  createTableOffenses,
 } from "./Services/tableCreate.js";
-import { 
+import {
   insertSubjectIfNotExist,
   insertSectionIfNotExist,
+  insertCourseIfNotExist
 } from "./Services/valueInserter.js";
 import signInRouter from "./Routes/signInRoute.js";
 import signUpRouter from "./Routes/signUpRoute.js";
+import integratorRouter from "./Routes/integratorRoute.js";
+import { integratorInserter } from "./Services/integratorInserter.js";
 
 dotenv.config();
 const app = express();
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
 
-app.use('/signin', signInRouter);
-app.use('/signup', signUpRouter);
+app.use("/signin", signInRouter);
+app.use("/signup", signUpRouter);
+app.use("/aimsStudentAccounts", integratorRouter);
 
 async function initializeApp() {
   try {
@@ -55,10 +56,13 @@ async function initializeApp() {
 
     await insertSubjectIfNotExist();
     await insertSectionIfNotExist();
+    await insertCourseIfNotExist();
 
     const server = app.listen(process.env.PORT, () => {
       console.log(`App is listening on port: ${process.env.PORT}`);
     });
+
+    await integratorInserter();
   } catch (error) {
     console.error("Error initializing the application:", error);
     process.exit(1);
