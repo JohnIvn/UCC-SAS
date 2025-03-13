@@ -1,4 +1,4 @@
-import { aimsStudentAccounts } from "../Models/aimsStudentInfo.js";
+import { aimsStudentAccounts } from "../Models/aimsStudentInfoModel.js";
 
 async function createTableAimsStudentAccounts() {
   try {
