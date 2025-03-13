@@ -1,13 +1,11 @@
 import { BrowserRouter as Router } from "react-router-dom"
-import HomeRoute from "./pages/HomeRoute"
+import LandingPage from "./pages/landingPage.jsx"
 
 export default function App () {
 
     return (
       <Router>
-          <HomeRoute/>
-
+          <LandingPage/>
       </Router>
     )
-
 }
