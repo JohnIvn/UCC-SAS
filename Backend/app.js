@@ -40,13 +40,13 @@ async function initializeApp() {
     await createDatabaseIfNotExists();
     await db.authenticate();
     await createTableSection();
+    await createTableCourse();
+    await createTableSubject();
     await createTableUserAccounts();
     await createTableUserAdminAccounts();
     await createTableTeacherAccountTable();
     await createTableImageTable();
     await createTeacherTableImageTable();
-    await createTableSubject();
-    await createTableCourse();
     await createTabletudentSubjects();
 
     console.log("Tables have been created or checked.");

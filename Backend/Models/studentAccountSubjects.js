@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../database.js";
 import { userStudentAccount } from "./studentAccountModel.js";
+import Subject from "./subjectsModel.js";
 
 class studentSubjectsModel extends Model {}
 
@@ -42,35 +43,82 @@ const studentSubjects = studentSubjectsModel.init(
       },
     subject1: {
       type: DataTypes.STRING,
-      allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject2: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject3: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject4: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject5: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject6: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject7: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     subject8: {
       type: DataTypes.STRING,
       allowNull: true,
+      references: {
+        model: Subject,
+        key: "subject_code",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
   },
   {

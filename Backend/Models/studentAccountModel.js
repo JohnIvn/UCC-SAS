@@ -2,6 +2,7 @@ import db from "../database.js";
 import { Sequelize, DataTypes, Model } from "sequelize";
 import dotenv from "dotenv";
 import Section from "./sectionModel.js";
+import Course from "./courseModel.js";
 
 dotenv.config();
 
@@ -25,21 +26,24 @@ const userStudentAccount = userStudentAccountModel.init(
     },
     course: {
       type: DataTypes.STRING,
-      allowNull: true,
+      references: {
+        model: Course,
+        key: "name",
+      },
     },
     year: {
       type: DataTypes.STRING,
       references: {
         model: Section,
         key: "year",
-      }
+      },
     },
     section: {
       type: DataTypes.STRING,
       references: {
         model: Section,
         key: "section",
-      }
+      },
     },
     role: {
       type: DataTypes.STRING,

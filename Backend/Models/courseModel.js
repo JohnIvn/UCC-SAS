@@ -15,6 +15,7 @@ const Course = CourseModel.init(
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
     },
     description: {
       type: DataTypes.STRING,

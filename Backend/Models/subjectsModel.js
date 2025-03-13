@@ -12,6 +12,7 @@ const Subject = SubjectModel.init(
     },
     subject_code: {
       type: DataTypes.STRING,
+      unique: true,
     },
     name: {
       type: DataTypes.STRING,
