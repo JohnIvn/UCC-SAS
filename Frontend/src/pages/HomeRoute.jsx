@@ -7,7 +7,7 @@ export default function HomeRoute () {
 
 	return (
 		<section
-			className="flex justify-between items-start h-screen w-screen bg-gray-100"
+			className="flex justify-between items-start h-screen w-screen bg-gray-200"
 		>
 			<MainAside/>
 			
