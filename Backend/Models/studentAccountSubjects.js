@@ -23,24 +23,24 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     studentNumber: {
-        type: DataTypes.STRING,
-        references: {
-          model: userStudentAccount,
-          key: "studentNumber",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+      type: DataTypes.STRING,
+      references: {
+        model: userStudentAccount,
+        key: "studentNumber",
       },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
     section: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        references: {
-          model: userStudentAccount,
-          key: "section",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: userStudentAccount,
+        key: "section",
       },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
     subject1: {
       type: DataTypes.STRING,
       references: {
@@ -49,6 +49,10 @@ const studentSubjects = studentSubjectsModel.init(
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
+    },
+    subject1_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
     },
     subject2: {
       type: DataTypes.STRING,
@@ -60,6 +64,10 @@ const studentSubjects = studentSubjectsModel.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    subject2_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
+    },
     subject3: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -69,6 +77,10 @@ const studentSubjects = studentSubjectsModel.init(
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
+    },
+    subject3_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
     },
     subject4: {
       type: DataTypes.STRING,
@@ -80,6 +92,10 @@ const studentSubjects = studentSubjectsModel.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    subject4_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
+    },
     subject5: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -89,6 +105,10 @@ const studentSubjects = studentSubjectsModel.init(
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
+    },
+    subject5_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
     },
     subject6: {
       type: DataTypes.STRING,
@@ -100,6 +120,10 @@ const studentSubjects = studentSubjectsModel.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    subject6_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
+    },
     subject7: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -110,6 +134,10 @@ const studentSubjects = studentSubjectsModel.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    subject7_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
+    },
     subject8: {
       type: DataTypes.STRING,
       allowNull: true,
@@ -119,6 +147,10 @@ const studentSubjects = studentSubjectsModel.init(
       },
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
+    },
+    subject8_attendance: {
+        unique: true,
+      type: DataTypes.INTEGER,
     },
   },
   {

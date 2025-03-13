@@ -9,6 +9,7 @@ import Section from "../Models/sectionModel.js";
 import imageTeacher from "../Models/imageTeacherModel.js";
 import Course from "../Models/courseModel.js";
 import studentSubjects from "../Models/studentAccountSubjects.js";
+import Offenses from "../Models/offensesTable.js";
 
 async function createTableUserAccounts() {
   try {
@@ -93,6 +94,15 @@ async function createTabletudentSubjects() {
   }
 }
 
+async function createTableOffenses() {
+  try {
+    await Offenses.sync({ alter: false });
+    console.log("Offenses table is checked and updated if necessary");
+  } catch (error) {
+    console.error("Error checking/updating Offenses Subjects table", error);
+  }
+}
+
 export {
   createTableUserAccounts,
   createTableUserAdminAccounts,
@@ -103,4 +113,5 @@ export {
   createTableSection,
   createTableCourse,
   createTabletudentSubjects,
+  createTableOffenses,
 };
