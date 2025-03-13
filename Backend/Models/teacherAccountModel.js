@@ -54,4 +54,31 @@ const TeacherAccount = TeacherAccountModel.init(
   }
 );
 
-export default TeacherAccount;
+class StaffSignInModel extends Model {}
+
+StaffSignInModel.init(
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      primaryKey: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: process.env.DEFAULT_USER_ROLE,
+    },
+  },
+  {
+    sequelize: db,
+    modelName: "StaffSignInModel",
+    tableName: "Teacher_Accounts",
+    timestamps: true,
+  }
+);
+
+export { TeacherAccount, StaffSignInModel};
