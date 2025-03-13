@@ -1,4 +1,8 @@
-import TemplateProfile from '../assets/pfp.png'
+import Cania from '../assets/Cania.png'
+import Azares from '../assets/Azares.jpg'
+import Montenegro from '../assets/Montenegro.jpg'
+import Obien from '../assets/Obien.png'
+import Vergara from '../assets/Vergara.jpg'
 import QRCode from '../assets/QR.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
@@ -6,14 +10,18 @@ import SquareButton from '../components/SquareButton'
 import CustomInputA from '../components/CustomInputA'
 
 export default function HomePage() {
+	const numberFactor = Math.floor(Math.random() * 5)
 
-	const RenderMultiple = (count, element) => {
-		let elements = []
-		for (let i = 0; i < count; i++) {
-			elements.push(element)
-		}
-		return elements;
+	const RenderRandomImg = () => {
+		let elements = [Cania, Montenegro, Obien, Vergara, Azares]
+		return elements[numberFactor]
 	}
+	
+	const RenderRandomName = () => {
+		let names = ["Cania, Matthew Gabriel M.", "Montenegro, Jan Ivan", "Obien, Janelle", "Vergara, Andreana", "Azares, JVincent"]
+		return names[numberFactor]
+	}
+
 
 	return (
 		<section
@@ -31,16 +39,16 @@ export default function HomePage() {
 					>
 
 						<div
-							className='flex w-32 h-32 lg:w-48 lg:h-48 rounded-full p-2 bg-sky-900 absolute left-[-1.5rem] transition-all duration-200'
+							className='flex w-32 h-32 lg:w-48 lg:h-48 rounded-full p-2 bg-sky-900 absolute left-[-2.0rem] transition-all duration-200'
 						>
 							<img
 								className='flex w-full h-full rounded-full'
-								src={TemplateProfile} />
+								src={RenderRandomImg()} />
 						</div>
 						<div
 							className='flex flex-col justify-center items-center w-full h-full pl-28  lg:pl-48'
 						>
-							<h1 className='flex justify-start items-center w-full text-white text-md lg:text-xl font-semibold' >Matthew Gabriel M. Cania</h1>
+							<h1 className='flex justify-start items-center w-full text-white text-md lg:text-xl font-semibold' >{RenderRandomName()}</h1>
 							<p className='flex justify-start items-center w-full text-white sm:text-sm' >BSIT-2B</p>
 							<p className='flex justify-start items-center w-full text-white sm:text-sm' >2023110-4N</p>
 						</div>
@@ -82,8 +90,13 @@ export default function HomePage() {
 				<div
 					className='flex justify-center items-center h-40 w-5/6 bg-gray-800 rounded-2xl gap-2'
 				>
-					{RenderMultiple(6, <CustomInputA />)}
-
+					<CustomInputA/>
+					<CustomInputA/>
+					<CustomInputA/>
+					<CustomInputA/>
+					<CustomInputA/>
+					<CustomInputA/>
+						
 				</div>
 
 				<div
