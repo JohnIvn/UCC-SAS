@@ -6,7 +6,7 @@ import {
 import UserImgModel from "../Models/imageStudentModel.js";
 
 const SignUp = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, middleName, lastName, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 12);
 
   try {
@@ -21,6 +21,9 @@ const SignUp = async (req, res) => {
     }
 
     const newUserAccount = await userStudentAccount.create({
+      first_name: firstName, 
+      middle_name: middleName, 
+      last_name: lastName, 
       email,
       password: hashedPassword,
     });
