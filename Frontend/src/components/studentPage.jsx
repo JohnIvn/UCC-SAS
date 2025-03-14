@@ -42,24 +42,23 @@ const StudentPage = () => {
   }, []);
 
   useEffect(() => {
-    if (content === "schedule" && formData.studentNumber) {
-      const fetchSubjects = async () => {
-        try {
-          const response = await api.get(`/subjects/${formData.studentNumber}`);
-          setSubjects(
-            Array.isArray(response.data)
-              ? response.data
-              : response.data.subjects || []
-          );
-        } catch (error) {
-          console.error("Error fetching subjects:", error);
-          setSubjects([]);
-        }
-      };
+    const fetchUserProfile = async () => {
+      try {
+        const response = await api.get("/profile");
+        setFormData(response.data);
+        setMyAccount(response.data);
 
-      fetchSubjects();
-    }
-  }, [content, formData.studentNumber]);
+        const fullName =
+          `${response.data.first_name} ${response.data.middle_name} ${response.data.last_name}`.trim();
+        setUserName(fullName);
+      } catch (error) {
+        console.error("Error fetching user profile:", error.message);
+        alert("Failed to load user profile. Please try again later.");
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const handleClose = () => setShowModal(false);
   const handleShow = (modalType) => {

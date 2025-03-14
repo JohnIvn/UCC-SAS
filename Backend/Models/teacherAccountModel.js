@@ -18,9 +18,17 @@ const TeacherAccount = TeacherAccountModel.init(
       primaryKey: true,
       allowNull: false,
     },
-    name: {
+    first_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+    },
+    middle_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING,
@@ -81,4 +89,4 @@ StaffSignInModel.init(
   }
 );
 
-export { TeacherAccount, StaffSignInModel};
+export { TeacherAccount, StaffSignInModel };

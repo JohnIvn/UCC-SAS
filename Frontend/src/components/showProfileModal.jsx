@@ -13,7 +13,8 @@ const ShowProfile = ({ showModal, handleClose, modalContent, userProfile }) => {
         {modalContent === "viewProfile" && userProfile && (
           <div>
             <p>
-              <strong>Name:</strong> {userProfile.name}
+              <strong>Name:</strong> {userProfile.first_name}{" "}
+              {userProfile.middle_name} {userProfile.last_name}
             </p>
             <p>
               <strong>Email:</strong> {userProfile.email}

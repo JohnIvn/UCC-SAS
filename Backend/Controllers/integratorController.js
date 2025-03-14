@@ -8,7 +8,9 @@ const integratorAddStudentAccount = async (req, res) => {
 
         const {
             studentNumber,
-            name,
+            first_name,
+            middle_name,
+            last_name,
             course,
             year,
             section,
@@ -19,7 +21,9 @@ const integratorAddStudentAccount = async (req, res) => {
         } = req.body;
 
         if (!studentNumber) return res.status(400).json({ message: "Student number is required" });
-        if (!name) return res.status(400).json({ message: "Name is required" });
+        if (!first_name) return res.status(400).json({ message: "Name is required" });
+        if (!middle_name) return res.status(400).json({ message: "Name is required" });
+        if (!last_name) return res.status(400).json({ message: "Name is required" });
         if (!course) return res.status(400).json({ message: "Course is required" });
         if (!year) return res.status(400).json({ message: "Year is required" });
         if (!section) return res.status(400).json({ message: "Section is required" });
@@ -48,7 +52,9 @@ const integratorAddStudentAccount = async (req, res) => {
 
         const newStudent = await userStudentAccount.create({
             studentNumber,
-            name,
+            first_name,
+            middle_name,
+            last_name,
             course,
             year,
             section,

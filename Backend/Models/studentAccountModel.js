@@ -20,7 +20,15 @@ const userStudentAccount = userStudentAccountModel.init(
       allowNull: true,
       unique: true,
     },
-    name: {
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    middle_name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    last_name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
