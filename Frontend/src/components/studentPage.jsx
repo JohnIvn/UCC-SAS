@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ToastContainer from "react-bootstrap/ToastContainer";
+import AttendanceToastNotif from "../components/attendanceToast.jsx";
 import "../CSS/landingPageDesign.css";
 import UCCLogo from "../assets/uccFavicon.png";
-import ChangeModal from "./changeModal.jsx";
-import ShowProfile from "./showProfileModal.jsx";
 import api from "../api.js";
 
 const StudentPage = () => {
@@ -15,6 +15,11 @@ const StudentPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [myAccount, setMyAccount] = useState({});
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    variant: "success",
+  });
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -22,12 +27,9 @@ const StudentPage = () => {
         const response = await api.get("/profile");
         setFormData(response.data);
         setMyAccount(response.data);
-
         if (response.data.name) {
           setUserName(response.data.name);
         }
-
-        console.log("Fetched user profile:", response.data);
       } catch (error) {
         console.error("Error fetching user profile:", error.message);
         alert("Failed to load user profile. Please try again later.");
@@ -42,18 +44,11 @@ const StudentPage = () => {
       const fetchSubjects = async () => {
         try {
           const response = await api.get(`/subjects/${formData.studentNumber}`);
-          console.log("Fetched subjects:", response.data);
-
-          if (Array.isArray(response.data)) {
-            setSubjects(response.data);
-          } else if (
-            response.data.subjects &&
-            Array.isArray(response.data.subjects)
-          ) {
-            setSubjects(response.data.subjects);
-          } else {
-            setSubjects([]);
-          }
+          setSubjects(
+            Array.isArray(response.data)
+              ? response.data
+              : response.data.subjects || []
+          );
         } catch (error) {
           console.error("Error fetching subjects:", error);
           setSubjects([]);
@@ -84,16 +79,32 @@ const StudentPage = () => {
   const handleAttend = async (subjectId) => {
     try {
       await api.post(`/attendance/${formData.studentNumber}/${subjectId}`);
-      alert(`Attendance marked for subject ${subjectId}`);
-      window.location.reload();
+
+      setSubjects((prevSubjects) =>
+        prevSubjects.map((subject, index) =>
+          index + 1 === subjectId
+            ? { ...subject, attendance: "Present" } 
+            : subject
+        )
+      );
+
+      setToast({
+        show: true,
+        message: `Attendance marked for subject ${subjectId}`,
+        variant: "success",
+      });
     } catch (error) {
       console.error("Error marking attendance:", error);
-      alert("Failed to mark attendance. Please try again.");
+      setToast({
+        show: true,
+        message: "Failed to mark attendance. Please try again.",
+        variant: "danger",
+      });
     }
   };
 
   return (
-    <div className=" bg-dark text-white vh-100 d-flex flex-column">
+    <div className="bg-dark text-white vh-100 d-flex flex-column">
       <nav className="navbar navbar-dark bg-dark w-100 p-3">
         <div className="container d-flex justify-content-between">
           <span className="navbar-brand h1 d-flex align-items-center">
@@ -234,21 +245,12 @@ const StudentPage = () => {
         )}
       </div>
 
-      {modalContent === "ShowProfile" && (
-        <ShowProfile
-          showModal={showModal}
-          handleClose={handleClose}
-          modalContent="viewProfile"
-          userProfile={formData}
-        />
-      )}
-      {modalContent === "changePassword" && (
-        <ChangeModal
-          showModal={showModal}
-          handleClose={handleClose}
-          userEmail={formData.email}
-        />
-      )}
+      <AttendanceToastNotif
+        show={toast.show}
+        onClose={() => setToast({ ...toast, show: false })}
+        message={toast.message}
+        variant={toast.variant}
+      />
     </div>
   );
 };
