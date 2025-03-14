@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import AttendanceToastNotif from "../components/attendanceToast.jsx";
-import "../CSS/landingPageDesign.css";
 import ChangeModal from "./changeModal.jsx";
 import ShowProfile from "./showProfileModal.jsx";
+import "../CSS/landingPageDesign.css";
 import UCCLogo from "../assets/uccFavicon.png";
 import api from "../api.js";
 
@@ -42,23 +42,24 @@ const StudentPage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const response = await api.get("/profile");
-        setFormData(response.data);
-        setMyAccount(response.data);
+    if (content === "schedule" && formData.studentNumber) {
+      const fetchSubjects = async () => {
+        try {
+          const response = await api.get(`/subjects/${formData.studentNumber}`);
+          setSubjects(
+            Array.isArray(response.data)
+              ? response.data
+              : response.data.subjects || []
+          );
+        } catch (error) {
+          console.error("Error fetching subjects:", error);
+          setSubjects([]);
+        }
+      };
 
-        const fullName =
-          `${response.data.first_name} ${response.data.middle_name} ${response.data.last_name}`.trim();
-        setUserName(fullName);
-      } catch (error) {
-        console.error("Error fetching user profile:", error.message);
-        alert("Failed to load user profile. Please try again later.");
-      }
-    };
-
-    fetchUserProfile();
-  }, []);
+      fetchSubjects();
+    }
+  }, [content, formData.studentNumber]);
 
   const handleClose = () => setShowModal(false);
   const handleShow = (modalType) => {
@@ -253,7 +254,6 @@ const StudentPage = () => {
         variant={toast.variant}
       />
 
-      {/* Modal Rendering */}
       {modalContent === "ShowProfile" && (
         <ShowProfile
           showModal={showModal}
