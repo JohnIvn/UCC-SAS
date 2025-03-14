@@ -85,6 +85,7 @@ const StudentPage = () => {
     try {
       await api.post(`/attendance/${formData.studentNumber}/${subjectId}`);
       alert(`Attendance marked for subject ${subjectId}`);
+      window.location.reload();
     } catch (error) {
       console.error("Error marking attendance:", error);
       alert("Failed to mark attendance. Please try again.");
@@ -180,32 +181,51 @@ const StudentPage = () => {
 
         {content === "schedule" && (
           <>
-            <h1>Class Schedule</h1>
-            <p>View your upcoming classes and events.</p>
+            <h1 className="fw-bold">Class Schedule</h1>
+            <p className="text-secondary">
+              View your upcoming classes and events.
+            </p>
             <ul className="list-group mt-3 w-75">
               {subjects.length > 0 ? (
-                subjects.map((subjectObj, index) => (
-                  <li
-                    key={index}
-                    className="list-group-item bg-dark text-white d-flex justify-content-between align-items-center"
-                  >
-                    <div>
-                      <strong>Subject {index + 1}:</strong>{" "}
-                      {subjectObj.subject || "Not assigned yet"}
-                      <br />
-                      <strong>Attendance:</strong>{" "}
-                      {subjectObj.attendance || "N/A"}
-                    </div>
-                    <button
-                      className="btn btn-success fw-bold px-4 py-2"
-                      onClick={() => handleAttend(index + 1)}
+                subjects.map((subjectObj, index) => {
+                  const hasAttended =
+                    subjectObj.attendance && subjectObj.attendance !== "N/A";
+
+                  return (
+                    <li
+                      key={index}
+                      className="list-group-item bg-dark text-white d-flex justify-content-between align-items-center p-3 border-light"
                     >
-                      Attend
-                    </button>
-                  </li>
-                ))
+                      <div>
+                        <h5 className="mb-1 text-warning">
+                          <i className="bi bi-book me-2"></i>
+                          {subjectObj.subject || "Not assigned yet"}
+                        </h5>
+                        <p className="mb-0">
+                          <strong>Attendance: </strong>
+                          <span
+                            className={`badge ${
+                              hasAttended ? "bg-success" : "bg-danger"
+                            }`}
+                          >
+                            {subjectObj.attendance || "Not Recorded"}
+                          </span>
+                        </p>
+                      </div>
+                      <button
+                        className={`btn fw-bold px-4 py-2 ${
+                          hasAttended ? "btn-secondary" : "btn-success"
+                        }`}
+                        onClick={() => handleAttend(index + 1)}
+                        disabled={hasAttended}
+                      >
+                        {hasAttended ? "Attended" : "Mark Attendance"}
+                      </button>
+                    </li>
+                  );
+                })
               ) : (
-                <li className="list-group-item bg-dark text-white">
+                <li className="list-group-item bg-dark text-white text-center">
                   No subjects available.
                 </li>
               )}

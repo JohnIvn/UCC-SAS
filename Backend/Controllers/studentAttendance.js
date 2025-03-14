@@ -15,11 +15,9 @@ const getStudentSubjectsAttendance = async (req, res) => {
     const subjectField = `subject${parsedSubjectNo}_attendance`;
 
     if (!studentSubjects.rawAttributes[subjectField]) {
-      return res
-        .status(400)
-        .json({
-          error: `Invalid subject number. Field '${subjectField}' does not exist.`,
-        });
+      return res.status(400).json({
+        error: `Invalid subject number. Field '${subjectField}' does not exist.`,
+      });
     }
 
     const studentRecord = await studentSubjects.findOne({
@@ -30,7 +28,8 @@ const getStudentSubjectsAttendance = async (req, res) => {
       return res.status(404).json({ error: "Student record not found." });
     }
 
-    const currentTime = new Date().toISOString();
+    const currentTime = moment().format("YYYY-MM-DD HH:mm:ss"); // Local time
+
     await studentRecord.update({ [subjectField]: currentTime });
 
     res.json({
