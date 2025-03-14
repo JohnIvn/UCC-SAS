@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import AttendanceToastNotif from "../components/attendanceToast.jsx";
 import "../CSS/landingPageDesign.css";
+import ChangeModal from "./changeModal.jsx";
+import ShowProfile from "./showProfileModal.jsx";
 import UCCLogo from "../assets/uccFavicon.png";
 import api from "../api.js";
 
@@ -83,7 +85,7 @@ const StudentPage = () => {
       setSubjects((prevSubjects) =>
         prevSubjects.map((subject, index) =>
           index + 1 === subjectId
-            ? { ...subject, attendance: "Present" } 
+            ? { ...subject, attendance: "Present" }
             : subject
         )
       );
@@ -251,6 +253,26 @@ const StudentPage = () => {
         message={toast.message}
         variant={toast.variant}
       />
+
+      {/* Modal Rendering */}
+      {modalContent === "ShowProfile" && (
+        <ShowProfile
+          showModal={showModal}
+          handleClose={handleClose}
+          modalContent="viewProfile"
+          userProfile={formData}
+        />
+      )}
+
+      {modalContent === "changePassword" && (
+        <>
+          <ChangeModal
+            showModal={showModal}
+            handleClose={handleClose}
+            userEmail={formData.email}
+          />
+        </>
+      )}
     </div>
   );
 };
