@@ -15,13 +15,13 @@ import {
   createTableCourse,
   createTabletudentSubjects,
   createTableOffenses,
-  createTableOGuest
+  createTableOGuest,
 } from "./Services/tableCreate.js";
 import {
   insertSubjectIfNotExist,
   insertSectionIfNotExist,
   insertCourseIfNotExist,
-  insertTeacherIfNotExist
+  insertTeacherIfNotExist,
 } from "./Services/valueInserter.js";
 import signInRouter from "./Routes/signInRoute.js";
 import signUpRouter from "./Routes/signUpRoute.js";
@@ -29,8 +29,9 @@ import integratorRouter from "./Routes/integratorRoute.js";
 import addGuestRouter from "./Routes/guestRoute.js";
 import forgotRouter from "./Routes/forgotRoute.js";
 import staffSignIn from "./Routes/staffSignInRoute.js";
-import studentProfile from "./Routes/studentProfileRoute.js"
+import studentProfile from "./Routes/studentProfileRoute.js";
 import getStudentSubjects from "./Controllers/studentSubjectController.js";
+import getStudentSubjectsAttendance from "./Controllers/studentAttendance.js";
 import { integratorInserter } from "./Services/integratorInserter.js";
 import subjectShuffler from "./Services/subjectShuffler.js";
 
@@ -44,11 +45,12 @@ app.use(cors());
 app.use("/signin", signInRouter);
 app.use("/signup", signUpRouter);
 app.use("/aimsStudentAccounts", integratorRouter);
-app.use("/add-guest", addGuestRouter); 
+app.use("/add-guest", addGuestRouter);
 app.use("/staff-signin", staffSignIn);
 app.use("/profile", studentProfile);
 app.use("/forgot-password", forgotRouter);
-app.use("/", getStudentSubjects)
+app.use("/subjects/:studentNumber", getStudentSubjects);
+app.use("/:studentNumber/:subjectNo", getStudentSubjectsAttendance);
 
 async function initializeApp() {
   try {

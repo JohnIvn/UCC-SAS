@@ -51,8 +51,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject1_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject2: {
       type: DataTypes.STRING,
@@ -65,8 +65,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject2_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject3: {
       type: DataTypes.STRING,
@@ -79,8 +79,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject3_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject4: {
       type: DataTypes.STRING,
@@ -93,8 +93,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject4_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject5: {
       type: DataTypes.STRING,
@@ -107,8 +107,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject5_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject6: {
       type: DataTypes.STRING,
@@ -121,8 +121,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject6_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject7: {
       type: DataTypes.STRING,
@@ -135,8 +135,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject7_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
     subject8: {
       type: DataTypes.STRING,
@@ -149,8 +149,8 @@ const studentSubjects = studentSubjectsModel.init(
       onUpdate: "CASCADE",
     },
     subject8_attendance: {
-        unique: true,
-      type: DataTypes.INTEGER,
+      unique: true,
+      type: DataTypes.STRING,
     },
   },
   {

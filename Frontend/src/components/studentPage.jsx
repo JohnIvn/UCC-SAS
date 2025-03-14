@@ -11,6 +11,7 @@ const StudentPage = () => {
   const [content, setContent] = useState("profile");
   const [modalContent, setModalContent] = useState("");
   const [userName, setUserName] = useState("");
+  const [subjects, setSubjects] = useState([]);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [myAccount, setMyAccount] = useState({});
@@ -22,11 +23,11 @@ const StudentPage = () => {
         setFormData(response.data);
         setMyAccount(response.data);
 
-        console.log(response.data);
-
         if (response.data.name) {
           setUserName(response.data.name);
         }
+
+        console.log("Fetched user profile:", response.data);
       } catch (error) {
         console.error("Error fetching user profile:", error.message);
         alert("Failed to load user profile. Please try again later.");
@@ -35,6 +36,33 @@ const StudentPage = () => {
 
     fetchUserProfile();
   }, []);
+
+  useEffect(() => {
+    if (content === "schedule" && formData.studentNumber) {
+      const fetchSubjects = async () => {
+        try {
+          const response = await api.get(`/subjects/${formData.studentNumber}`);
+          console.log("Fetched subjects:", response.data);
+
+          if (Array.isArray(response.data)) {
+            setSubjects(response.data);
+          } else if (
+            response.data.subjects &&
+            Array.isArray(response.data.subjects)
+          ) {
+            setSubjects(response.data.subjects);
+          } else {
+            setSubjects([]);
+          }
+        } catch (error) {
+          console.error("Error fetching subjects:", error);
+          setSubjects([]);
+        }
+      };
+
+      fetchSubjects();
+    }
+  }, [content, formData.studentNumber]);
 
   const handleClose = () => setShowModal(false);
   const handleShow = (modalType) => {
@@ -51,6 +79,19 @@ const StudentPage = () => {
     localStorage.removeItem("role");
     navigate("/");
     window.location.reload();
+  };
+
+  // Function to handle attendance
+  const handleAttend = async (subjectId) => {
+    try {
+      await api.post(`/attend/${subjectId}`, {
+        studentNumber: formData.studentNumber,
+      });
+      alert(`Attendance marked for subject ${subjectId}`);
+    } catch (error) {
+      console.error("Error marking attendance:", error);
+      alert("Failed to mark attendance. Please try again.");
+    }
   };
 
   return (
@@ -139,12 +180,42 @@ const StudentPage = () => {
             </div>
           </>
         )}
+
         {content === "schedule" && (
           <>
             <h1>Class Schedule</h1>
             <p>View your upcoming classes and events.</p>
+            <ul className="list-group mt-3 w-75">
+              {Array.isArray(subjects) && subjects.length > 0 ? (
+                subjects.map((subjectObj, index) => (
+                  <li
+                    key={index}
+                    className="list-group-item bg-dark text-white d-flex justify-content-between align-items-center"
+                  >
+                    <div>
+                      <strong>Subject {index + 1}:</strong>{" "}
+                      {subjectObj.subject || "Not assigned yet"}
+                      <br />
+                      <strong>Attendance:</strong>{" "}
+                      {subjectObj.attendance || "N/A"}
+                    </div>
+                    <button
+                      className="btn btn-success fw-bold px-4 py-2"
+                      onClick={() => handleAttend(subjectObj.subject)}
+                    >
+                      Attend
+                    </button>
+                  </li>
+                ))
+              ) : (
+                <li className="list-group-item bg-dark text-white">
+                  No subjects available.
+                </li>
+              )}
+            </ul>
           </>
         )}
+
         {content === "grades" && (
           <>
             <h1>Grades</h1>
@@ -171,7 +242,7 @@ const StudentPage = () => {
         <ChangeModal
           showModal={showModal}
           handleClose={handleClose}
-          userEmail={formData.email} 
+          userEmail={formData.email}
         />
       )}
     </div>
