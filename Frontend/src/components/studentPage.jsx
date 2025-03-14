@@ -93,7 +93,7 @@ const StudentPage = () => {
   };
 
   return (
-    <div className="bg-dark text-white vh-100 d-flex flex-column">
+    <div className=" bg-dark text-white vh-100 d-flex flex-column">
       <nav className="navbar navbar-dark bg-dark w-100 p-3">
         <div className="container d-flex justify-content-between">
           <span className="navbar-brand h1 d-flex align-items-center">

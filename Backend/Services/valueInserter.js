@@ -9,21 +9,47 @@ export const insertSubjectIfNotExist = async () => {
     const existingSubject = await SubjectModel.findAll();
 
     if (existingSubject.length === 0) {
-      const Subject = [
+      const subjects = [
         {
           subject_code: "IT 102",
-          name: "Advance Database Systems",
+          name: "Advanced Database Systems",
+          description: "-",
+        },
+        {
+          subject_code: "CCS 106",
+          name: "Applications Development and Emerging Technologies",
+          description: "-",
+        },
+        {
+          subject_code: "IT 103",
+          name: "Computer System Organization",
+          description: "-",
+        },
+        {
+          subject_code: "IT 101",
+          name: "Integrative Programming and Technologies",
+          description: "-",
+        },
+        { subject_code: "IT 104", name: "Networking 2", description: "-" },
+        {
+          subject_code: "GEC 007",
+          name: "Science, Technology & Society",
+          description: "-",
+        },
+        {
+          subject_code: "PATHFIT 4",
+          name: "Sports and Fitness",
           description: "-",
         },
       ];
 
-      await SubjectModel.bulkCreate(Subject);
-      console.log("Subject inserted successfully");
+      await SubjectModel.bulkCreate(subjects);
+      console.log("Subjects inserted successfully");
     } else {
-      console.log("Subject already exist, skipping insertion.");
+      console.log("Subjects already exist, skipping insertion.");
     }
   } catch (error) {
-    console.error("Error inserting Subject:", error);
+    console.error("Error inserting subjects:", error);
   }
 };
 
@@ -108,7 +134,7 @@ export const insertCourseIfNotExist = async () => {
   }
 };
 
-const saltRounds = 10; 
+const saltRounds = 10;
 
 export const insertTeacherIfNotExist = async () => {
   try {
@@ -125,7 +151,7 @@ export const insertTeacherIfNotExist = async () => {
           name: "Testtest",
           email: "testtest@gmail.com",
           phoneNumber: "099999999",
-          password: hashedPassword, 
+          password: hashedPassword,
         },
       ];
 

@@ -23,3 +23,15 @@ a.active:hover {
   color: #ffffff;
   border-bottom: 2px solid #ffffff;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #212529; 
+}
+
+#root {
+  height: 100%;
+}

@@ -19,20 +19,22 @@ const randomizeSubjects = async () => {
     });
 
     if (students.length === 0) {
-      console.log("No students with null subject1 found.");
+      console.log("No students with null subjects found.");
       return;
     }
 
-    const shuffledSubjects = subjectCodes.sort(() => Math.random() - 0.5);
+    for (let student of students) {
+      const shuffledSubjects = [...subjectCodes].sort(() => Math.random() - 0.5);
 
-    for (let i = 0; i < students.length; i++) {
-      const randomSubject =
-        shuffledSubjects[i % shuffledSubjects.length]; 
+      const updateData = {};
+      for (let i = 1; i <= 8; i++) {
+        updateData[`subject${i}`] = shuffledSubjects[i % shuffledSubjects.length];
+      }
 
-      await students[i].update({ subject1: randomSubject });
+      await student.update(updateData);
     }
 
-    console.log("Subjects randomized successfully.");
+    console.log("Subjects randomized successfully for all students.");
   } catch (error) {
     console.error("Error randomizing subjects:", error);
   }
