@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ToastContainer from "react-bootstrap/ToastContainer";
 import AttendanceToastNotif from "../components/attendanceToast.jsx";
 import ChangeModal from "../components/changeModal.jsx";
 import ShowProfile from "../components/showProfileModal.jsx";
@@ -58,34 +57,8 @@ const StaffPage = () => {
     window.location.reload();
   };
 
-  const handleAttend = async (subjectId) => {
-    try {
-      await api.post(`/attendance/${formData.studentNumber}/${subjectId}`);
-
-      setSubjects((prevSubjects) =>
-        prevSubjects.map((subject, index) =>
-          index + 1 === subjectId
-            ? { ...subject, attendance: "Present" }
-            : subject
-        )
-      );
-
-      setToast({
-        show: true,
-        message: `Attendance marked for subject ${subjectId}`,
-        variant: "success",
-      });
-    } catch (error) {
-      console.error("Error marking attendance:", error);
-      setToast({
-        show: true,
-        message: "Failed to mark attendance. Please try again.",
-        variant: "danger",
-      });
-    }
-  };
-
   const handleSignUp = () => {
+    setModalContent("SignUp");
     setShowModal(true);
   };
 
@@ -190,7 +163,7 @@ const StaffPage = () => {
         />
       )}
 
-      {showModal && (
+      {showModal && modalContent === "SignUp" && (
         <SignUpModal
           showModal={showModal}
           handleClose={() => setShowModal(false)}
