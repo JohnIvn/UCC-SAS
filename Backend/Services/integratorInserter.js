@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { integratorAddStudentAccount } from "../Controllers/integratorController.js";
+import studentSubjects from "../Models/studentAccountSubjects.js"; 
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ export async function integratorInserter() {
 
     if (data && Array.isArray(data)) {
       for (const student of data) {
-        await integratorAddStudentAccount(
+        const studentResponse = await integratorAddStudentAccount(
           { body: student },
           {
             status: (code) => ({
@@ -35,6 +36,28 @@ export async function integratorInserter() {
             }),
           }
         );
+
+        const { userId, studentNumber, section } = student;
+
+        if (userId && studentNumber && section) {
+          const existingStudent = await studentSubjects.findOne({ where: { studentNumber } });
+
+          if (!existingStudent) {
+            await studentSubjects.create({
+              userId,
+              studentNumber,
+              section,
+            });
+
+            console.log(
+              `Inserted into studentSubjects: userId=${userId}, studentNumber=${studentNumber}, section=${section}`
+            );
+          } else {
+            console.warn(`Student with studentNumber=${studentNumber} already exists. Skipping insertion.`);
+          }
+        } else {
+          console.warn("Missing required fields for studentSubjects:", student);
+        }
       }
     }
   } catch (error) {

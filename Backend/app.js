@@ -30,7 +30,9 @@ import addGuestRouter from "./Routes/guestRoute.js";
 import forgotRouter from "./Routes/forgotRoute.js";
 import staffSignIn from "./Routes/staffSignInRoute.js";
 import studentProfile from "./Routes/studentProfileRoute.js"
+import getStudentSubjects from "./Controllers/studentSubjectController.js";
 import { integratorInserter } from "./Services/integratorInserter.js";
+import subjectShuffler from "./Services/subjectShuffler.js";
 
 dotenv.config();
 const app = express();
@@ -46,6 +48,7 @@ app.use("/add-guest", addGuestRouter);
 app.use("/staff-signin", staffSignIn);
 app.use("/profile", studentProfile);
 app.use("/forgot-password", forgotRouter);
+app.use("/", getStudentSubjects)
 
 async function initializeApp() {
   try {
@@ -75,6 +78,7 @@ async function initializeApp() {
     });
 
     await integratorInserter();
+    await subjectShuffler();
   } catch (error) {
     console.error("Error initializing the application:", error);
     process.exit(1);
