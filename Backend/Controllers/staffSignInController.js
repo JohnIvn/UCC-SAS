@@ -37,7 +37,7 @@ const StaffSignIn = async (req, res) => {
       message: "Login successful.",
       token: token,
       role: user.role,
-      redirectTo: user.role === "Admin" ? "/Admin-Portal" : "/homepage",
+      redirectTo: user.role === "Teacher" ? "/staff-page" : "/homepage",
     });
   } catch (error) {
     console.error("Error in SignIn function: ", error);

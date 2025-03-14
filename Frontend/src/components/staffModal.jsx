@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import StaffSuccessToast from "./staffSuccess.jsx";
+import { useNavigate } from "react-router-dom";
 
 const StaffModal = ({ showModal, handleClose }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [currentTime, setCurrentTime] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,7 +30,7 @@ const StaffModal = ({ showModal, handleClose }) => {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword); 
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = async (e) => {
@@ -43,25 +46,43 @@ const StaffModal = ({ showModal, handleClose }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: name, password }), 
+        body: JSON.stringify({ email: name, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message);
+        console.log("Response from backend:", data);
+
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+        if (data.role) {
+          localStorage.setItem("role", data.role);
+        }
+
+        if (data.redirectTo) {
+          console.log("Redirecting to:", data.redirectTo);
+          navigate(data.redirectTo);
+        } else {
+          console.log("Redirecting to default location");
+          navigate("/staff-page");
+        }
+
         setShowToast(true);
         handleClose();
       } else {
-        console.error("Error submitting login data");
+        const errorData = await response.json();
+        setError(errorData.message || "Invalid credentials, please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
+      setError("An error occurred, please try again later.");
     }
   };
 
   const handleModalClose = () => {
     setName("");
-    setPassword(""); 
+    setPassword("");
     handleClose();
   };
 
@@ -121,6 +142,12 @@ const StaffModal = ({ showModal, handleClose }) => {
                   disabled
                 />
               </Form.Group>
+
+              {error && (
+                <div className="alert alert-danger" role="alert">
+                  {error}
+                </div>
+              )}
 
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleModalClose}>

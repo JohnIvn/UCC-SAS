@@ -1,5 +1,6 @@
 import LandingPage from "./pages/landingPage.jsx";
 import StudentPage from "./components/studentPage.jsx";
+import StaffPage from "./pages/staffPage.jsx"; // Assuming you have a StaffPage component
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,6 +17,10 @@ const ProtectedRoute = ({ children, requiredRole }) => {
   }
 
   if (requiredRole && role !== requiredRole) {
+    // Redirect to homepage if role doesn't match for student, or redirect teacher to their page
+    if (role === "Teacher") {
+      return <Navigate to="/staff-page" />;
+    }
     return <Navigate to="/homepage" />;
   }
 
@@ -39,8 +44,16 @@ export default function App() {
         <Route
           path="/homepage"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute requiredRole="Student">
               <StudentPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/staff-page"
+          element={
+            <ProtectedRoute requiredRole="Teacher">
+              <StaffPage />
             </ProtectedRoute>
           }
         />
