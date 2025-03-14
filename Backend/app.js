@@ -31,7 +31,7 @@ import forgotRouter from "./Routes/forgotRoute.js";
 import staffSignIn from "./Routes/staffSignInRoute.js";
 import studentProfile from "./Routes/studentProfileRoute.js";
 import getStudentSubjects from "./Controllers/studentSubjectController.js";
-import getStudentSubjectsAttendance from "./Controllers/studentAttendance.js";
+import getAttendance from "./Routes/studentAttendanceRoute.js";
 import { integratorInserter } from "./Services/integratorInserter.js";
 import subjectShuffler from "./Services/subjectShuffler.js";
 
@@ -50,7 +50,7 @@ app.use("/staff-signin", staffSignIn);
 app.use("/profile", studentProfile);
 app.use("/forgot-password", forgotRouter);
 app.use("/subjects/:studentNumber", getStudentSubjects);
-app.use("/:studentNumber/:subjectNo", getStudentSubjectsAttendance);
+app.use("/attendance", getAttendance);
 
 async function initializeApp() {
   try {

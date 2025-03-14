@@ -81,12 +81,9 @@ const StudentPage = () => {
     window.location.reload();
   };
 
-  // Function to handle attendance
   const handleAttend = async (subjectId) => {
     try {
-      await api.post(`/attend/${subjectId}`, {
-        studentNumber: formData.studentNumber,
-      });
+      await api.post(`/attendance/${formData.studentNumber}/${subjectId}`);
       alert(`Attendance marked for subject ${subjectId}`);
     } catch (error) {
       console.error("Error marking attendance:", error);
@@ -186,7 +183,7 @@ const StudentPage = () => {
             <h1>Class Schedule</h1>
             <p>View your upcoming classes and events.</p>
             <ul className="list-group mt-3 w-75">
-              {Array.isArray(subjects) && subjects.length > 0 ? (
+              {subjects.length > 0 ? (
                 subjects.map((subjectObj, index) => (
                   <li
                     key={index}
@@ -201,7 +198,7 @@ const StudentPage = () => {
                     </div>
                     <button
                       className="btn btn-success fw-bold px-4 py-2"
-                      onClick={() => handleAttend(subjectObj.subject)}
+                      onClick={() => handleAttend(index + 1)}
                     >
                       Attend
                     </button>
@@ -213,19 +210,6 @@ const StudentPage = () => {
                 </li>
               )}
             </ul>
-          </>
-        )}
-
-        {content === "grades" && (
-          <>
-            <h1>Grades</h1>
-            <p>View your academic progress and grades.</p>
-          </>
-        )}
-        {content === "contact" && (
-          <>
-            <h1>Contact Us</h1>
-            <p>If you have any questions, feel free to reach out!</p>
           </>
         )}
       </div>
