@@ -190,7 +190,7 @@ const StudentPage = () => {
               </button>
             </div>
           </>
-        )}
+        )} 
 
         {content === "schedule" && (
           <>
