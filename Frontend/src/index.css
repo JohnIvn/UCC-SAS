@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+
+@layer utilities {
+	@keyframes move-down {
+	  from {
+		transform: translateY(-50px);
+	  }
+	  to {
+		transform: translateY(0);
+	  }
+	}
+	.animate-move-down {
+	  animation: move-down .25s ease-in-out;
+	}
+  }

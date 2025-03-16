@@ -44,6 +44,7 @@ export default function NavigationBar() {
             <NavLink
               className={({isActive}) => `${isActive ?  'text-white' : 'text-gray-400'} flex justify-center items-center w-24 h-full hover:text-white hover:underline transition-all duration-300`}
               to={item.link}
+              key={index}
             >
               {item.label}
             </NavLink>
