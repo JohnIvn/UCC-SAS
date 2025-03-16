@@ -1,6 +1,8 @@
+import bcrypt from "bcrypt";
 import SubjectModel from "../Models/subjectsModel.js";
 import SectionModel from "../Models/sectionModel.js";
 import CourseModel from "../Models/courseModel.js";
+import { TeacherAccount } from "../Models/teacherAccountModel.js";
 
 export const insertSubjectIfNotExist = async () => {
   try {
@@ -32,28 +34,28 @@ export const insertSectionIfNotExist = async () => {
     if (existingSection.length === 0) {
       const Section = [
         {
-          "name": "-",
-          "year": "1",
-          "section": "A",
-          "description": "-"
+          name: "-",
+          year: "1",
+          section: "A",
+          description: "-",
         },
         {
-          "name": "-",
-          "year": "2",
-          "section": "B",
-          "description": "-"
+          name: "-",
+          year: "2",
+          section: "B",
+          description: "-",
         },
         {
-          "name": "-",
-          "year": "3",
-          "section": "C",
-          "description": "-"
+          name: "-",
+          year: "3",
+          section: "C",
+          description: "-",
         },
         {
-          "name": "-",
-          "year": "4",
-          "section": "D",
-          "description": "-"
+          name: "-",
+          year: "4",
+          section: "D",
+          description: "-",
         },
       ];
 
@@ -91,7 +93,8 @@ export const insertCourseIfNotExist = async () => {
         {
           Course_code: "-",
           name: "BSEMC",
-          description: "Bachelor of Science in Entertainment and Multimedia Computing",
+          description:
+            "Bachelor of Science in Entertainment and Multimedia Computing",
         },
       ];
 
@@ -102,5 +105,36 @@ export const insertCourseIfNotExist = async () => {
     }
   } catch (error) {
     console.error("Error inserting Course:", error);
+  }
+};
+
+const saltRounds = 10; 
+
+export const insertTeacherIfNotExist = async () => {
+  try {
+    const existingTeacher = await TeacherAccount.findAll();
+
+    if (existingTeacher.length === 0) {
+      const password = "testtest";
+
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      const Teacher = [
+        {
+          teacherNumber: 1,
+          name: "Testtest",
+          email: "testtest@gmail.com",
+          phoneNumber: "099999999",
+          password: hashedPassword, 
+        },
+      ];
+
+      await TeacherAccount.bulkCreate(Teacher);
+      console.log("Teacher inserted successfully");
+    } else {
+      console.log("Teacher already exists, skipping insertion.");
+    }
+  } catch (error) {
+    console.error("Error inserting Teacher:", error);
   }
 };

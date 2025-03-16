@@ -15,15 +15,19 @@ import {
   createTableCourse,
   createTabletudentSubjects,
   createTableOffenses,
+  createTableOGuest
 } from "./Services/tableCreate.js";
 import {
   insertSubjectIfNotExist,
   insertSectionIfNotExist,
-  insertCourseIfNotExist
+  insertCourseIfNotExist,
+  insertTeacherIfNotExist
 } from "./Services/valueInserter.js";
 import signInRouter from "./Routes/signInRoute.js";
 import signUpRouter from "./Routes/signUpRoute.js";
 import integratorRouter from "./Routes/integratorRoute.js";
+import addGuestRouter from "./Routes/guestRoute.js";
+import staffSignIn from "./Routes/staffSignInRoute.js";
 import { integratorInserter } from "./Services/integratorInserter.js";
 
 dotenv.config();
@@ -36,6 +40,8 @@ app.use(cors());
 app.use("/signin", signInRouter);
 app.use("/signup", signUpRouter);
 app.use("/aimsStudentAccounts", integratorRouter);
+app.use("/add-guest", addGuestRouter); 
+app.use("/staff-signin", staffSignIn);
 
 async function initializeApp() {
   try {
@@ -51,12 +57,14 @@ async function initializeApp() {
     await createTeacherTableImageTable();
     await createTabletudentSubjects();
     await createTableOffenses();
+    await createTableOGuest();
 
     console.log("Tables have been created or checked.");
 
     await insertSubjectIfNotExist();
     await insertSectionIfNotExist();
     await insertCourseIfNotExist();
+    await insertTeacherIfNotExist();
 
     const server = app.listen(process.env.PORT, () => {
       console.log(`App is listening on port: ${process.env.PORT}`);
