@@ -4,13 +4,13 @@ import GuestSuccessToast from "./guestSucces.jsx";
 
 const GuestModal = ({ showModal, handleClose }) => {
   const [name, setName] = useState("");
-  const [showToast, setShowToast] = useState(false); 
-  const [currentTime, setCurrentTime] = useState(""); 
+  const [showToast, setShowToast] = useState(false);
+  const [currentTime, setCurrentTime] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      setCurrentTime(now.toLocaleTimeString()); 
+      setCurrentTime(now.toLocaleTimeString());
     }, 1000);
 
     return () => clearInterval(timer);
@@ -24,11 +24,11 @@ const GuestModal = ({ showModal, handleClose }) => {
     e.preventDefault();
 
     if (!name.trim()) {
-      return; 
+      return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/add-guest", {
+      const response = await fetch("http://192.168.1.7:3000/add-guest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,8 +38,8 @@ const GuestModal = ({ showModal, handleClose }) => {
 
       if (response.ok) {
         console.log("Guest name submitted successfully");
-        setShowToast(true); 
-        handleClose(); 
+        setShowToast(true);
+        handleClose();
       } else {
         console.error("Error submitting guest name");
       }
@@ -49,7 +49,7 @@ const GuestModal = ({ showModal, handleClose }) => {
   };
 
   const handleModalClose = () => {
-    setName(""); 
+    setName("");
     handleClose();
   };
 
@@ -78,7 +78,7 @@ const GuestModal = ({ showModal, handleClose }) => {
                   We'll never share your Name with anyone else.
                 </Form.Text>
               </Form.Group>
-              
+
               <Form.Group className="mb-3" controlId="formBasicTime">
                 <Form.Label>Current Time</Form.Label>
                 <Form.Control
@@ -102,7 +102,10 @@ const GuestModal = ({ showModal, handleClose }) => {
         </Modal.Body>
       </Modal>
 
-      <GuestSuccessToast show={showToast} handleClose={() => setShowToast(false)} />
+      <GuestSuccessToast
+        show={showToast}
+        handleClose={() => setShowToast(false)}
+      />
     </>
   );
 };
